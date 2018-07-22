@@ -115,8 +115,7 @@ public class CastHighlightPublisher extends Recorder {
     
 /home/braeden/Downloads/Highlight-Automation-Command/HighlightAutomation.jar
 /home/braeden/Downloads/Highlight-Automation-Command/perl
-b.smith+Jenkins@castsoftware.com
-Nni3#T25
+
 5091
     
  
