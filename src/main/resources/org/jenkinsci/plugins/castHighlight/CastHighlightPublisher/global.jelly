@@ -12,10 +12,29 @@
     tags they use. Views are always organized according to its owner class,
     so it should be straightforward to find them.
   -->
-  <f:section title="Hello World Builder">
-    <f:entry title="French" field="useFrench"
-      description="Check if we should say hello in French">
+  <f:section title="Highlight Global Info">
+    <f:entry title="Absolute path to HighlightAutomation.jar" field="clitool">
+        <f:textbox />
+    </f:entry>
+    
+    <f:entry title="Absolute path to Highlight perl directory" field="perlpath">
+        <f:textbox />
+    </f:entry>
+    
+    
+     <f:entry title="Use Highlight Offline" field="useOffline"
+      description="Disable the login and upload feature of Highlight, just export CSVs.">
       <f:checkbox />
     </f:entry>
+    <f:entry title="Login" field="login">
+        <f:textbox />
+    </f:entry>
+    <f:entry title="Password" field="password" type="password">
+        <f:password />
+    </f:entry>
+    <f:entry title="Company ID" field="compid">
+        <f:textbox />
+    </f:entry>
+    
   </f:section>
 </j:jelly>

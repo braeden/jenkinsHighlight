@@ -1,29 +1,27 @@
-package org.jenkinsci.plugins.testExample;
+package org.jenkinsci.plugins.castHighlight;
 
 import hudson.model.AbstractBuild;
 import hudson.model.Action;
 
-/**
- * Created by prit8976 on 8/27/15.
- */
-public class TestExampleBuildAction implements Action {
+
+public class CastHighlightBuildAction implements Action {
 
     private String message;
     private AbstractBuild<?, ?> build;
 
     @Override
     public String getIconFileName() {
-        return "/plugin/testExample/img/build-goals.png";
+        return "/plugin/castHighlight/img/build-goals.png";
     }
 
     @Override
     public String getDisplayName() {
-        return "Test Example Build Page";
+        return "Highlight Results";
     }
 
     @Override
     public String getUrlName() {
-        return "testExampleBA";
+        return "highlight";
     }
 
     public String getMessage() {
@@ -38,7 +36,7 @@ public class TestExampleBuildAction implements Action {
         return build;
     }
 
-    TestExampleBuildAction(final String message, final AbstractBuild<?, ?> build)
+    CastHighlightBuildAction(final String message, final AbstractBuild<?, ?> build)
     {
         this.message = message;
         this.build = build;

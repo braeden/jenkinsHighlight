@@ -3,7 +3,8 @@
         <st:include it="${it.build}" page="sidepanel.jelly"/>
         <l:main-panel>
             <h1>${it.displayName}</h1>
-            <h2>Build #${it.buildNumber}'s Output: ${it.message}</h2>
+            <h2>Build #${it.buildNumber}: </h2>
+            <p>${it.message}</p>
         </l:main-panel>
     </l:layout>
 </j:jelly>
