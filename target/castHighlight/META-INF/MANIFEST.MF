@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Built-By: braeden
 Created-By: Apache Maven
-Build-Jdk: 10.0.2
+Build-Jdk: 1.8.0_181
 Extension-Name: castHighlight
 Specification-Title: Run CAST Highlight CLI tool
 Implementation-Title: castHighlight
