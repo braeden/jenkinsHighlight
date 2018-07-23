@@ -6,4 +6,5 @@ DE Project Files
 
 #Jenkins jobs
 work
-#target
+target/*
+!target/castHighlight.*
