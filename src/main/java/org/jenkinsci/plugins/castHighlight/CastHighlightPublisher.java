@@ -34,7 +34,7 @@ import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.nio.file.Paths;
 /*
 TODO: 
 - Rename artifact id, classes
@@ -164,7 +164,7 @@ Nni3#T25
                 && compid != null
                 && appid != null
                 && serverurl != null) {
-                    message = "Running online, check Console Output for results";
+                    message = "Ran online";
                     String[] strs = new String[]{
                         "--login", login, 
                         "--password", password, 
@@ -179,9 +179,9 @@ Nni3#T25
                         
                 } else {
                     if (!formGlobal.getBoolean("useOffline")) {
-                        message = "Some fields required for online use are empty, running offline";
+                        message = "Some fields required for online use are empty, ran offline";
                     } else {
-                        message = "Running offline, check Console Output for results";
+                        message = "Ran offline";
                     }
                     commandAddition.add("--skipUpload");
                     //offline
@@ -198,7 +198,8 @@ Nni3#T25
                 
                 try {
                     ProcessBuilder pb = new ProcessBuilder(commandAddition);
-                    listener.getLogger().print("> ");
+                    listener.getLogger().println("\nHIGHLIGHT MESSAGE: "+ message);
+                    listener.getLogger().print(" > ");
                     for (String s: pb.command()) {
                         //Print the command used
                         listener.getLogger().print(s+" ");
@@ -212,7 +213,10 @@ Nni3#T25
                     }
                     int status = p.waitFor();
                     listener.getLogger().println("Exited with status: " + status);
-                    //listener.getLogger().println(System.getProperty("jenkins.hudsonUrl"));
+                    //listener.getLogger().println(System.getenv("jenkins.hudsonUrl"));
+                    //Path currentRelativePath = Paths.get("");
+                    //String uiui = currentRelativePath.toAbsolutePath().toString();
+                    //listener.getLogger().println("Current relative path is: " + uiui);
                 } catch(IOException e) {
                     e.printStackTrace();  
                     message = "IO Exception";
@@ -313,7 +317,6 @@ Nni3#T25
         public boolean configure(StaplerRequest req, JSONObject formData) throws FormException {
             // To persist global configuration information,
             // set that to properties and call save().
-            formGlobalOutput = formData;
             login = formData.getString("login");
             password = formData.getString("password");
             compid = formData.getString("compid");
@@ -325,7 +328,10 @@ Nni3#T25
             // ^Can also use req.bindJSON(this, formData);
             //  (easier when there are many fields; need set* methods for this, like setUseFrench)
             save();
+            formGlobalOutput = formData;
+
             return super.configure(req, formData);
+            //return(true);
         }
 
         /**
