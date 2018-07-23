@@ -21,13 +21,9 @@ import java.util.List;
 
 /*
 TODO: 
-- Rename artifact id, classes
+- Disable inputs fields that shouldn't be used 
 - Add string queries to all local factors, validate project path, id's etc. 
-- Redo the Final display page, just complete or not with return code
-- Finalize the calling of the jar OS agnostic from inputs
-- Catch the program and throw a nice build error when missing parameters
-- Remove extra imports and cleanup 
-- Make directories folder selectable !!!
+- Make directories folder selectable
 */
 
 
@@ -93,16 +89,12 @@ public class CastHighlightPublisher extends Recorder {
 /*
 /home/braeden/Documents/Test
 /home/braeden/Downloads/HighlightOuput
-    25080
-    
-    
+25080
     
 /home/braeden/Downloads/Highlight-Automation-Command/HighlightAutomation.jar
 /home/braeden/Downloads/Highlight-Automation-Command/perl
 b.smith+Jenkins@castsoftware.com
 5091
-    
- 
 */
     
     
