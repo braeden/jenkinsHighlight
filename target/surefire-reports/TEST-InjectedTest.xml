@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="InjectedTest" time="0.824" tests="7" errors="0" skipped="0" failures="0">
+<testsuite name="InjectedTest" time="0.727" tests="7" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="10.0.2+13"/>
@@ -62,11 +62,11 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase name="org/jenkinsci/plugins/castHighlight/CastHighlightBuildAction/index.jelly" classname="org.jvnet.hudson.test.JellyTestSuiteBuilder$JellyCheck" time="0.112"/>
-  <testcase name="org/jenkinsci/plugins/castHighlight/CastHighlightPublisher/global.jelly" classname="org.jvnet.hudson.test.JellyTestSuiteBuilder$JellyCheck" time="0.113"/>
+  <testcase name="org/jenkinsci/plugins/castHighlight/CastHighlightBuildAction/index.jelly" classname="org.jvnet.hudson.test.JellyTestSuiteBuilder$JellyCheck" time="0.134"/>
+  <testcase name="org/jenkinsci/plugins/castHighlight/CastHighlightPublisher/global.jelly" classname="org.jvnet.hudson.test.JellyTestSuiteBuilder$JellyCheck" time="0.151"/>
   <testcase name="org/jenkinsci/plugins/castHighlight/CastHighlightPublisher/config.jelly" classname="org.jvnet.hudson.test.JellyTestSuiteBuilder$JellyCheck" time="0.075"/>
-  <testcase name="org/jenkinsci/plugins/castHighlight/CastHighlightProjectAction/index.jelly" classname="org.jvnet.hudson.test.JellyTestSuiteBuilder$JellyCheck" time="0.036"/>
-  <testcase name="index.jelly" classname="org.jvnet.hudson.test.JellyTestSuiteBuilder$JellyCheck" time="0.004"/>
-  <testcase name="org.jvnet.hudson.test.JellyTestSuiteBuilder$JellyTestSuite" classname="org.jvnet.hudson.test.junit.FailedTest" time="0"/>
-  <testcase name="testCliSanity" classname="org.jvnet.hudson.test.PluginAutomaticTestBuilder$CliSanityTest" time="0.484"/>
+  <testcase name="org/jenkinsci/plugins/castHighlight/CastHighlightProjectAction/index.jelly" classname="org.jvnet.hudson.test.JellyTestSuiteBuilder$JellyCheck" time="0.027"/>
+  <testcase name="index.jelly" classname="org.jvnet.hudson.test.JellyTestSuiteBuilder$JellyCheck" time="0.003"/>
+  <testcase name="org.jvnet.hudson.test.JellyTestSuiteBuilder$JellyTestSuite" classname="org.jvnet.hudson.test.junit.FailedTest" time="0.001"/>
+  <testcase name="testCliSanity" classname="org.jvnet.hudson.test.PluginAutomaticTestBuilder$CliSanityTest" time="0.336"/>
 </testsuite>

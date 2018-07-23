@@ -1,25 +1,25 @@
 Picking up existing exploded jenkins.war at /home/braeden/Documents/Jenkins/castHighlight/./target/jenkins-for-test
-Jul 23, 2018 2:29:29 PM org.mortbay.log.Slf4jLog info
+Jul 23, 2018 2:31:15 PM org.mortbay.log.Slf4jLog info
 INFO: Logging to org.slf4j.impl.JDK14LoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
-Jul 23, 2018 2:29:29 PM org.mortbay.log.Slf4jLog info
+Jul 23, 2018 2:31:15 PM org.mortbay.log.Slf4jLog info
 INFO: jetty-6.1.26
-Jul 23, 2018 2:29:29 PM org.mortbay.log.Slf4jLog info
+Jul 23, 2018 2:31:15 PM org.mortbay.log.Slf4jLog info
 INFO: NO JSP Support for , did not find org.apache.jasper.servlet.JspServlet
-Jul 23, 2018 2:29:29 PM org.mortbay.log.Slf4jLog info
-INFO: Started SocketConnector@0.0.0.0:43723
-Jul 23, 2018 2:29:29 PM jenkins.InitReactorRunner$1 onAttained
+Jul 23, 2018 2:31:15 PM org.mortbay.log.Slf4jLog info
+INFO: Started SocketConnector@0.0.0.0:43005
+Jul 23, 2018 2:31:16 PM jenkins.InitReactorRunner$1 onAttained
 INFO: Started initialization
-Jul 23, 2018 2:29:32 PM jenkins.InitReactorRunner$1 onAttained
+Jul 23, 2018 2:31:18 PM jenkins.InitReactorRunner$1 onAttained
 INFO: Listed all plugins
-Jul 23, 2018 2:29:32 PM jenkins.InitReactorRunner$1 onAttained
+Jul 23, 2018 2:31:19 PM jenkins.InitReactorRunner$1 onAttained
 INFO: Prepared all plugins
-Jul 23, 2018 2:29:32 PM jenkins.InitReactorRunner$1 onAttained
+Jul 23, 2018 2:31:19 PM jenkins.InitReactorRunner$1 onAttained
 INFO: Started all plugins
-Jul 23, 2018 2:29:32 PM jenkins.InitReactorRunner$1 onAttained
+Jul 23, 2018 2:31:19 PM jenkins.InitReactorRunner$1 onAttained
 INFO: Augmented all extensions
-Jul 23, 2018 2:29:32 PM jenkins.InitReactorRunner$1 onAttained
+Jul 23, 2018 2:31:19 PM jenkins.InitReactorRunner$1 onAttained
 INFO: Loaded all jobs
-Jul 23, 2018 2:29:32 PM hudson.ExtensionFinder$Sezpoz scout
+Jul 23, 2018 2:31:19 PM hudson.ExtensionFinder$Sezpoz scout
 WARNING: Failed to scout ruby.ModelReloadAction
 java.lang.InstantiationException: file:/home/braeden/Documents/Jenkins/castHighlight/target/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: ruby.ModelReloadAction
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
@@ -54,7 +54,7 @@ Caused by: java.lang.ClassNotFoundException: ruby.ModelReloadAction
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
 	... 24 more
 
-Jul 23, 2018 2:29:32 PM hudson.ExtensionFinder$Sezpoz scout
+Jul 23, 2018 2:31:19 PM hudson.ExtensionFinder$Sezpoz scout
 WARNING: Failed to scout ruby.RubyExtensionFinder
 java.lang.InstantiationException: file:/home/braeden/Documents/Jenkins/castHighlight/target/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: ruby.RubyExtensionFinder
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
@@ -89,7 +89,7 @@ Caused by: java.lang.ClassNotFoundException: ruby.RubyExtensionFinder
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
 	... 24 more
 
-Jul 23, 2018 2:29:32 PM hudson.ExtensionFinder$Sezpoz _find
+Jul 23, 2018 2:31:19 PM hudson.ExtensionFinder$Sezpoz _find
 WARNING: Failed to load ruby.ModelReloadAction
 java.lang.InstantiationException: file:/home/braeden/Documents/Jenkins/castHighlight/target/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: cached miss for ruby.ModelReloadAction
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
@@ -126,7 +126,7 @@ Caused by: java.lang.ClassNotFoundException: cached miss for ruby.ModelReloadAct
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
 	... 26 more
 
-Jul 23, 2018 2:29:32 PM hudson.ExtensionFinder$Sezpoz _find
+Jul 23, 2018 2:31:19 PM hudson.ExtensionFinder$Sezpoz _find
 WARNING: Failed to load ruby.RubyExtensionFinder
 java.lang.InstantiationException: file:/home/braeden/Documents/Jenkins/castHighlight/target/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: cached miss for ruby.RubyExtensionFinder
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
@@ -163,7 +163,7 @@ Caused by: java.lang.ClassNotFoundException: cached miss for ruby.RubyExtensionF
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
 	... 26 more
 
-Jul 23, 2018 2:29:32 PM hudson.ExtensionFinder$Sezpoz _find
+Jul 23, 2018 2:31:19 PM hudson.ExtensionFinder$Sezpoz _find
 WARNING: Failed to load ruby.ModelReloadAction
 java.lang.InstantiationException: file:/home/braeden/Documents/Jenkins/castHighlight/target/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: cached miss for ruby.ModelReloadAction
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
@@ -209,7 +209,7 @@ Caused by: java.lang.ClassNotFoundException: cached miss for ruby.ModelReloadAct
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
 	... 35 more
 
-Jul 23, 2018 2:29:32 PM hudson.ExtensionFinder$Sezpoz _find
+Jul 23, 2018 2:31:19 PM hudson.ExtensionFinder$Sezpoz _find
 WARNING: Failed to load ruby.RubyExtensionFinder
 java.lang.InstantiationException: file:/home/braeden/Documents/Jenkins/castHighlight/target/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: cached miss for ruby.RubyExtensionFinder
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
@@ -255,7 +255,7 @@ Caused by: java.lang.ClassNotFoundException: cached miss for ruby.RubyExtensionF
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
 	... 35 more
 
-Jul 23, 2018 2:29:32 PM hudson.ExtensionFinder$Sezpoz _find
+Jul 23, 2018 2:31:19 PM hudson.ExtensionFinder$Sezpoz _find
 WARNING: Failed to load ruby.ModelReloadAction
 java.lang.InstantiationException: file:/home/braeden/Documents/Jenkins/castHighlight/target/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: cached miss for ruby.ModelReloadAction
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
@@ -301,7 +301,7 @@ Caused by: java.lang.ClassNotFoundException: cached miss for ruby.ModelReloadAct
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
 	... 35 more
 
-Jul 23, 2018 2:29:32 PM hudson.ExtensionFinder$Sezpoz _find
+Jul 23, 2018 2:31:19 PM hudson.ExtensionFinder$Sezpoz _find
 WARNING: Failed to load ruby.RubyExtensionFinder
 java.lang.InstantiationException: file:/home/braeden/Documents/Jenkins/castHighlight/target/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: cached miss for ruby.RubyExtensionFinder
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
@@ -347,7 +347,7 @@ Caused by: java.lang.ClassNotFoundException: cached miss for ruby.RubyExtensionF
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
 	... 35 more
 
-Jul 23, 2018 2:29:32 PM hudson.ExtensionFinder$GuiceFinder$SezpozModule configure
+Jul 23, 2018 2:31:19 PM hudson.ExtensionFinder$GuiceFinder$SezpozModule configure
 WARNING: Failed to load ruby.ModelReloadAction
 java.lang.InstantiationException: file:/home/braeden/Documents/Jenkins/castHighlight/target/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: cached miss for ruby.ModelReloadAction
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
@@ -399,7 +399,7 @@ Caused by: java.lang.ClassNotFoundException: cached miss for ruby.ModelReloadAct
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
 	... 41 more
 
-Jul 23, 2018 2:29:32 PM hudson.ExtensionFinder$GuiceFinder$SezpozModule configure
+Jul 23, 2018 2:31:19 PM hudson.ExtensionFinder$GuiceFinder$SezpozModule configure
 WARNING: Failed to load ruby.RubyExtensionFinder
 java.lang.InstantiationException: file:/home/braeden/Documents/Jenkins/castHighlight/target/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: cached miss for ruby.RubyExtensionFinder
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
@@ -451,33 +451,33 @@ Caused by: java.lang.ClassNotFoundException: cached miss for ruby.RubyExtensionF
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
 	... 41 more
 
-Jul 23, 2018 2:29:33 PM jenkins.InitReactorRunner$1 onAttained
+Jul 23, 2018 2:31:20 PM jenkins.InitReactorRunner$1 onAttained
 INFO: Completed initialization
-Jul 23, 2018 2:29:33 PM org.mortbay.log.Slf4jLog info
+Jul 23, 2018 2:31:20 PM org.mortbay.log.Slf4jLog info
 INFO: jetty-6.1.26
-Jul 23, 2018 2:29:33 PM org.mortbay.log.Slf4jLog info
-INFO: Started SocketConnector@0.0.0.0:41119
-Jul 23, 2018 2:29:34 PM org.mortbay.log.Slf4jLog info
-INFO: Stopped SocketConnector@0.0.0.0:43723
-Jul 23, 2018 2:29:34 PM org.mortbay.log.Slf4jLog info
+Jul 23, 2018 2:31:20 PM org.mortbay.log.Slf4jLog info
+INFO: Started SocketConnector@0.0.0.0:45869
+Jul 23, 2018 2:31:21 PM org.mortbay.log.Slf4jLog info
+INFO: Stopped SocketConnector@0.0.0.0:43005
+Jul 23, 2018 2:31:21 PM org.mortbay.log.Slf4jLog info
 INFO: jetty-6.1.26
-Jul 23, 2018 2:29:34 PM org.mortbay.log.Slf4jLog info
+Jul 23, 2018 2:31:21 PM org.mortbay.log.Slf4jLog info
 INFO: NO JSP Support for , did not find org.apache.jasper.servlet.JspServlet
-Jul 23, 2018 2:29:34 PM org.mortbay.log.Slf4jLog info
-INFO: Started SocketConnector@0.0.0.0:43425
-Jul 23, 2018 2:29:34 PM jenkins.InitReactorRunner$1 onAttained
+Jul 23, 2018 2:31:21 PM org.mortbay.log.Slf4jLog info
+INFO: Started SocketConnector@0.0.0.0:45883
+Jul 23, 2018 2:31:21 PM jenkins.InitReactorRunner$1 onAttained
 INFO: Started initialization
-Jul 23, 2018 2:29:34 PM jenkins.InitReactorRunner$1 onAttained
+Jul 23, 2018 2:31:21 PM jenkins.InitReactorRunner$1 onAttained
 INFO: Listed all plugins
-Jul 23, 2018 2:29:34 PM jenkins.InitReactorRunner$1 onAttained
+Jul 23, 2018 2:31:21 PM jenkins.InitReactorRunner$1 onAttained
 INFO: Prepared all plugins
-Jul 23, 2018 2:29:34 PM jenkins.InitReactorRunner$1 onAttained
+Jul 23, 2018 2:31:21 PM jenkins.InitReactorRunner$1 onAttained
 INFO: Started all plugins
-Jul 23, 2018 2:29:34 PM jenkins.InitReactorRunner$1 onAttained
+Jul 23, 2018 2:31:21 PM jenkins.InitReactorRunner$1 onAttained
 INFO: Augmented all extensions
-Jul 23, 2018 2:29:34 PM jenkins.InitReactorRunner$1 onAttained
+Jul 23, 2018 2:31:21 PM jenkins.InitReactorRunner$1 onAttained
 INFO: Loaded all jobs
-Jul 23, 2018 2:29:34 PM hudson.ExtensionFinder$Sezpoz scout
+Jul 23, 2018 2:31:21 PM hudson.ExtensionFinder$Sezpoz scout
 WARNING: Failed to scout ruby.ModelReloadAction
 java.lang.InstantiationException: file:/home/braeden/Documents/Jenkins/castHighlight/target/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: cached miss for ruby.ModelReloadAction
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
@@ -512,7 +512,7 @@ Caused by: java.lang.ClassNotFoundException: cached miss for ruby.ModelReloadAct
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
 	... 24 more
 
-Jul 23, 2018 2:29:34 PM hudson.ExtensionFinder$Sezpoz scout
+Jul 23, 2018 2:31:21 PM hudson.ExtensionFinder$Sezpoz scout
 WARNING: Failed to scout ruby.RubyExtensionFinder
 java.lang.InstantiationException: file:/home/braeden/Documents/Jenkins/castHighlight/target/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: cached miss for ruby.RubyExtensionFinder
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
@@ -547,7 +547,7 @@ Caused by: java.lang.ClassNotFoundException: cached miss for ruby.RubyExtensionF
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
 	... 24 more
 
-Jul 23, 2018 2:29:34 PM hudson.ExtensionFinder$Sezpoz _find
+Jul 23, 2018 2:31:21 PM hudson.ExtensionFinder$Sezpoz _find
 WARNING: Failed to load ruby.ModelReloadAction
 java.lang.InstantiationException: file:/home/braeden/Documents/Jenkins/castHighlight/target/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: cached miss for ruby.ModelReloadAction
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
@@ -584,7 +584,7 @@ Caused by: java.lang.ClassNotFoundException: cached miss for ruby.ModelReloadAct
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
 	... 26 more
 
-Jul 23, 2018 2:29:34 PM hudson.ExtensionFinder$Sezpoz _find
+Jul 23, 2018 2:31:21 PM hudson.ExtensionFinder$Sezpoz _find
 WARNING: Failed to load ruby.RubyExtensionFinder
 java.lang.InstantiationException: file:/home/braeden/Documents/Jenkins/castHighlight/target/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: cached miss for ruby.RubyExtensionFinder
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
@@ -621,7 +621,7 @@ Caused by: java.lang.ClassNotFoundException: cached miss for ruby.RubyExtensionF
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
 	... 26 more
 
-Jul 23, 2018 2:29:34 PM hudson.ExtensionFinder$Sezpoz _find
+Jul 23, 2018 2:31:21 PM hudson.ExtensionFinder$Sezpoz _find
 WARNING: Failed to load ruby.ModelReloadAction
 java.lang.InstantiationException: file:/home/braeden/Documents/Jenkins/castHighlight/target/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: cached miss for ruby.ModelReloadAction
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
@@ -667,7 +667,7 @@ Caused by: java.lang.ClassNotFoundException: cached miss for ruby.ModelReloadAct
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
 	... 35 more
 
-Jul 23, 2018 2:29:34 PM hudson.ExtensionFinder$Sezpoz _find
+Jul 23, 2018 2:31:21 PM hudson.ExtensionFinder$Sezpoz _find
 WARNING: Failed to load ruby.RubyExtensionFinder
 java.lang.InstantiationException: file:/home/braeden/Documents/Jenkins/castHighlight/target/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: cached miss for ruby.RubyExtensionFinder
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
@@ -713,7 +713,7 @@ Caused by: java.lang.ClassNotFoundException: cached miss for ruby.RubyExtensionF
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
 	... 35 more
 
-Jul 23, 2018 2:29:34 PM hudson.ExtensionFinder$Sezpoz _find
+Jul 23, 2018 2:31:21 PM hudson.ExtensionFinder$Sezpoz _find
 WARNING: Failed to load ruby.ModelReloadAction
 java.lang.InstantiationException: file:/home/braeden/Documents/Jenkins/castHighlight/target/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: cached miss for ruby.ModelReloadAction
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
@@ -759,7 +759,7 @@ Caused by: java.lang.ClassNotFoundException: cached miss for ruby.ModelReloadAct
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
 	... 35 more
 
-Jul 23, 2018 2:29:34 PM hudson.ExtensionFinder$Sezpoz _find
+Jul 23, 2018 2:31:21 PM hudson.ExtensionFinder$Sezpoz _find
 WARNING: Failed to load ruby.RubyExtensionFinder
 java.lang.InstantiationException: file:/home/braeden/Documents/Jenkins/castHighlight/target/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: cached miss for ruby.RubyExtensionFinder
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
@@ -805,7 +805,7 @@ Caused by: java.lang.ClassNotFoundException: cached miss for ruby.RubyExtensionF
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
 	... 35 more
 
-Jul 23, 2018 2:29:34 PM hudson.ExtensionFinder$GuiceFinder$SezpozModule configure
+Jul 23, 2018 2:31:21 PM hudson.ExtensionFinder$GuiceFinder$SezpozModule configure
 WARNING: Failed to load ruby.ModelReloadAction
 java.lang.InstantiationException: file:/home/braeden/Documents/Jenkins/castHighlight/target/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: cached miss for ruby.ModelReloadAction
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
@@ -857,7 +857,7 @@ Caused by: java.lang.ClassNotFoundException: cached miss for ruby.ModelReloadAct
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
 	... 41 more
 
-Jul 23, 2018 2:29:34 PM hudson.ExtensionFinder$GuiceFinder$SezpozModule configure
+Jul 23, 2018 2:31:21 PM hudson.ExtensionFinder$GuiceFinder$SezpozModule configure
 WARNING: Failed to load ruby.RubyExtensionFinder
 java.lang.InstantiationException: file:/home/braeden/Documents/Jenkins/castHighlight/target/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: cached miss for ruby.RubyExtensionFinder
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
@@ -909,8 +909,8 @@ Caused by: java.lang.ClassNotFoundException: cached miss for ruby.RubyExtensionF
 	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
 	... 41 more
 
-Jul 23, 2018 2:29:34 PM jenkins.InitReactorRunner$1 onAttained
+Jul 23, 2018 2:31:21 PM jenkins.InitReactorRunner$1 onAttained
 INFO: Completed initialization
 === Starting CliSanityTest.testCliSanity
-Jul 23, 2018 2:29:34 PM org.mortbay.log.Slf4jLog info
-INFO: Stopped SocketConnector@0.0.0.0:43425
+Jul 23, 2018 2:31:21 PM org.mortbay.log.Slf4jLog info
+INFO: Stopped SocketConnector@0.0.0.0:45883
