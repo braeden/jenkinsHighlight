@@ -1,6 +1,6 @@
 # To Install:
 
-1. Git Clone this repo:
+1. Git Clone this repo: ```git clone https://github.com/braeden123/jenkinsHighlight.git```
 
 2. On the Jenkins homepage, click, "Manage Jenkins"
 
