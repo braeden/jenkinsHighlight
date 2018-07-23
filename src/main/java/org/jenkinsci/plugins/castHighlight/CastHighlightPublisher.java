@@ -1,42 +1,22 @@
 package org.jenkinsci.plugins.castHighlight;
 
 
-
 import hudson.Launcher;
 import hudson.Extension;
-import hudson.model.Action;
 import hudson.tasks.*;
-import hudson.util.FormValidation;
 import hudson.model.AbstractBuild;
 import hudson.model.BuildListener;
 import hudson.model.AbstractProject;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 import org.kohsuke.stapler.DataBoundConstructor;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.QueryParameter;
-
-import javax.servlet.ServletException;
-import java.io.IOException;
- 
-import java.io.BufferedInputStream;
-import java.io.DataInputStream;
+import org.kohsuke.stapler.StaplerRequest; 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
-import java.io.PrintWriter;
-import java.nio.file.FileStore;
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.nio.file.Paths;
 
 
 /*
@@ -120,7 +100,6 @@ public class CastHighlightPublisher extends Recorder {
 /home/braeden/Downloads/Highlight-Automation-Command/HighlightAutomation.jar
 /home/braeden/Downloads/Highlight-Automation-Command/perl
 b.smith+Jenkins@castsoftware.com
-Nni3#T25
 5091
     
  
@@ -230,7 +209,7 @@ Nni3#T25
                     message = "Interupt Exception";
                 }
             } else {
-                message = "One of the specified paths is incorrect.";
+                listener.getLogger().println("\nHIGHLIGHT MESSAGE: One of the specified paths is incorrect.");
             }
             
         /*
@@ -245,14 +224,9 @@ Nni3#T25
         */
           
         } else {
-            message = "Highlight failed to execute, one or more of the mandatory config fields are empty";
+            listener.getLogger().println("\nHIGHLIGHT MESSAGE: Highlight failed to execute, one or more of the mandatory config fields are empty");
         }
         
-        
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //CastHighlightBuildAction buildAction = new CastHighlightBuildAction(message, build);
-        //build.addAction(buildAction);
-
         return true;
     }
 
@@ -328,13 +302,9 @@ Nni3#T25
             clitool = formData.getString("clitool");
             useoffline = formData.getBoolean("useOffline");
             perlpath = formData.getString("perlpath");
-
             formGlobalOutput = formData.toString();
-
-            // ^Can also use req.bindJSON(this, formData);
-            //  (easier when there are many fields; need set* methods for this, like setUseFrench)
+            
             save();
-
             return super.configure(req, formData);
         }
 
