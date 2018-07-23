@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Group-Id: org.jenkinsci.plugins
+Short-Name: castHighlight
+Long-Name: Highlight Automation
+Url: http://jenkins-ci.org/plugin/castHighlight/
+Plugin-Version: 0.1
+Hudson-Version: 1.580.1
+Jenkins-Version: 1.580.1
+Plugin-Developers: 
+Libraries: /home/braeden/Documents/Jenkins/castHighlight/target/classes
+Resource-Path: /home/braeden/Documents/Jenkins/castHighlight/src/main/
+ webapp
+
