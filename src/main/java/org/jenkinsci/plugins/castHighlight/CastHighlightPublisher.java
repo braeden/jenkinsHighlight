@@ -323,12 +323,12 @@ Nni3#T25
             clitool = formData.getString("clitool");
             useoffline = formData.getBoolean("useOffline");
             perlpath = formData.getString("perlpath");
-            formGlobalOutput = formData;
 
             
             // ^Can also use req.bindJSON(this, formData);
             //  (easier when there are many fields; need set* methods for this, like setUseFrench)
             save();
+            formGlobalOutput = formData;
 
             return super.configure(req, formData);
         }
