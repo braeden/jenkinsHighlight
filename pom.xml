@@ -65,6 +65,7 @@
       <url>http://repo.jenkins-ci.org/public/</url>
     </pluginRepository>
   </pluginRepositories>
+  
   <!-- If you want to depend on other plugins:
   <dependencies>
     <dependency>

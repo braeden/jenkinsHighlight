@@ -1,5 +1,7 @@
 package org.jenkinsci.plugins.castHighlight;
 
+
+
 import hudson.Launcher;
 import hudson.Extension;
 import hudson.model.Action;
@@ -9,13 +11,13 @@ import hudson.model.AbstractBuild;
 import hudson.model.BuildListener;
 import hudson.model.AbstractProject;
 import net.sf.json.JSONObject;
+import net.sf.json.JSONSerializer;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.QueryParameter;
 
 import javax.servlet.ServletException;
 import java.io.IOException;
-
  
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
@@ -35,6 +37,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.nio.file.Paths;
+
+
 /*
 TODO: 
 - Rename artifact id, classes
@@ -126,7 +130,8 @@ Nni3#T25
     @Override
     public boolean perform(AbstractBuild build, Launcher launcher, BuildListener listener) {
         String message="";
-        JSONObject formGlobal = getDescriptor().getDetails();
+        
+        JSONObject formGlobal = (JSONObject) JSONSerializer.toJSON(getDescriptor().getDetails());
         if (formGlobal != null &&
         formGlobal.getString("clitool") != null &&
         formGlobal.getString("perlpath") != null &&
@@ -283,7 +288,7 @@ Nni3#T25
          * <p/>
          * If you don't want fields to be persisted, use <tt>transient</tt>.
          */
-        private JSONObject formGlobalOutput;
+        private String formGlobalOutput;
         private String login;
         private String password;
         private String compid;
@@ -324,11 +329,11 @@ Nni3#T25
             useoffline = formData.getBoolean("useOffline");
             perlpath = formData.getString("perlpath");
 
-            
+            formGlobalOutput = formData.toString();
+
             // ^Can also use req.bindJSON(this, formData);
             //  (easier when there are many fields; need set* methods for this, like setUseFrench)
             save();
-            formGlobalOutput = formData;
 
             return super.configure(req, formData);
         }
@@ -339,7 +344,7 @@ Nni3#T25
          * The method name is bit awkward because global.jelly calls this method to determine
          * the initial state of the checkbox by the naming convention.
          */
-        public JSONObject getDetails() {
+        public String getDetails() {
             return formGlobalOutput;
         }
         public String getLogin() {
