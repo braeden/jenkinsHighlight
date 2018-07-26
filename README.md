@@ -17,7 +17,7 @@
 
 2. Click "Configure System"
 
-3. Scroll to the bottom and fill out all of the information you need to. (Paths to Highlightautomation.jar and perl directory are mandatory)
+3. Scroll to the bottom and fill out all of the information you need to. (* = mandatory)
 
 4. Click "Apply" then "Save"
 
@@ -27,7 +27,7 @@
 
 6. Under "Post-build Actions", click "Add post-build action", select "Run CAST Highlight"
 
-7. Fill out the information, Project Filepath and Output Filepath are mandatory. 
+7. Fill out the information (* = mandatory) 
 
 8. Click "Apply" then "Save"
 
