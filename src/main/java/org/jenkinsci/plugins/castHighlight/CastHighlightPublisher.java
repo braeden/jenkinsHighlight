@@ -135,7 +135,7 @@ b.smith+Jenkins@castsoftware.com
             File perlDir = new File(perlpath);
 
             
-            if(cliFile.exists() && !cliFile.isDirectory() &&
+            if(cliFile.exists() && cliFile.isFile() &&
             projectDir.exists() && projectDir.isDirectory() &&
             outputDir.exists() && outputDir.isDirectory() &&
             perlDir.exists() && perlDir.isDirectory()) { 
@@ -216,7 +216,14 @@ b.smith+Jenkins@castsoftware.com
                     message = "Interupt Exception";
                 }
             } else {
-                listener.getLogger().println("\nHIGHLIGHT MESSAGE: One of the specified paths is incorrect.");
+                listener.getLogger().println("\nHIGHLIGHT MESSAGE: One of the mandatory paths is incorrect.");
+                listener.getLogger().println("Highlight Tool: "+ clitool);
+                listener.getLogger().println("Project Path: "+ filepath);
+                listener.getLogger().println("Output Path: "+ filepathOutput);
+                listener.getLogger().println("Perl Path: "+ perlpath);
+
+                
+
             }
             
         /*
