@@ -19,10 +19,22 @@
     <f:entry title="Application ID" field="appid">
         <f:textbox />
     </f:entry>
-    <f:entry title="Server URL" field="serverurl">
+
+    <f:entry title="Enter Extra Flags for CLI tool" field="extrafields">
         <f:textbox />
     </f:entry>
-    <f:entry title="Enter Extra Flags for CLI tool" field="extrafields">
+    
+    <f:entry title="Use Highlight Offline" field="useoffline"
+      description="Disable the login and upload feature of Highlight, just export CSVs.">
+      <f:checkbox />
+    </f:entry>
+    <f:entry title="Login" field="login">
+        <f:textbox />
+    </f:entry>
+    <f:entry title="Password" field="password" type="password">
+        <f:password />
+    </f:entry>
+    <f:entry title="Company ID" field="compid">
         <f:textbox />
     </f:entry>
 </j:jelly>

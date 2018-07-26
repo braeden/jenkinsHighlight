@@ -49,20 +49,28 @@ TODO:
 public class CastHighlightPublisher extends Recorder {
 
     private final String filepath;
-    private final String serverurl;
     private final String appid;
     private final String filepathOutput;
     private final String extrafields;
+    private final String login;
+    private final String password;
+    private final String compid;
+
+    private final Boolean useoffline;
 
     
     // Fields in config.jelly must match the parameter names in the "DataBoundConstructor"
     @DataBoundConstructor
-    public CastHighlightPublisher(String filepath, String serverurl, String appid, String filepathOutput, String extrafields) {
+    public CastHighlightPublisher(String filepath, String appid, String filepathOutput, String extrafields, String login, String password, String compid, Boolean useoffline) {
         this.filepath = filepath;
-        this.serverurl = serverurl;
         this.appid = appid;
         this.filepathOutput = filepathOutput;
         this.extrafields = extrafields;
+        this.login = login;
+        this.password = password;
+        this.compid = compid;
+        this.useoffline = useoffline;
+
         
     }
 
@@ -78,13 +86,21 @@ public class CastHighlightPublisher extends Recorder {
     public String getAppid() {
         return appid;
     }
-    public String getServerurl() {
-        return serverurl;
-    }
-    public String getExtrafieldsl() {
+    public String getExtrafields() {
         return extrafields;
     }
-
+    public String getLogin() {
+        return login;
+    }
+    public String getPassword() {
+        return password;
+    }
+    public String getCompid() {
+        return compid;
+    }
+    public Boolean getUseoffline() {
+        return useoffline;
+    }
     
 /*
 /home/braeden/Documents/Test
@@ -108,10 +124,8 @@ b.smith+Jenkins@castsoftware.com
         formGlobal.getString("perlpath") != null &&
         filepath != null &&
         filepathOutput != null) {
-            String login = formGlobal.getString("login");
-            String password = formGlobal.getString("password");
-            String compid = formGlobal.getString("compid");
             String clitool = formGlobal.getString("clitool");
+            String serverurl = formGlobal.getString("serverurl");
             String perlpath = formGlobal.getString("perlpath");
 
             List<String> commandAddition = new ArrayList<String>();
@@ -134,7 +148,7 @@ b.smith+Jenkins@castsoftware.com
 
                 }
                         
-                if (!formGlobal.getBoolean("useOffline")
+                if (!useoffline
                 && login != null
                 && password != null
                 && compid != null
@@ -154,7 +168,7 @@ b.smith+Jenkins@castsoftware.com
                     //Online run tool. 
                         
                 } else {
-                    if (!formGlobal.getBoolean("useOffline")) {
+                    if (!useoffline) {
                         message = "Some fields required for online use are empty, ran offline";
                     } else {
                         message = "Ran offline";
@@ -162,6 +176,7 @@ b.smith+Jenkins@castsoftware.com
                     commandAddition.add("--skipUpload");
                     //offline
                 }
+                
                 if (extrafields != null) {
                     //Turn extra fields into an arraylist for the executed PB.
                     for (String s : extrafields.split(" ")) {
@@ -255,13 +270,11 @@ b.smith+Jenkins@castsoftware.com
          * If you don't want fields to be persisted, use <tt>transient</tt>.
          */
         private String formGlobalOutput;
-        private String login;
-        private String password;
-        private String compid;
         private String clitool;
         private String perlpath;
+        private String serverurl;
 
-        private boolean useoffline;
+        
 
         /**
          * In order to load the persisted global configuration, you have to
@@ -288,12 +301,10 @@ b.smith+Jenkins@castsoftware.com
         public boolean configure(StaplerRequest req, JSONObject formData) throws FormException {
             // To persist global configuration information,
             // set that to properties and call save().
-            login = formData.getString("login");
-            password = formData.getString("password");
-            compid = formData.getString("compid");
             clitool = formData.getString("clitool");
-            useoffline = formData.getBoolean("useOffline");
             perlpath = formData.getString("perlpath");
+            serverurl = formData.getString("serverurl");
+
             formGlobalOutput = formData.toString();
             
             save();
@@ -309,24 +320,18 @@ b.smith+Jenkins@castsoftware.com
         public String getDetails() {
             return formGlobalOutput;
         }
-        public String getLogin() {
-            return login;
-        }
-        public String getPassword() {
-            return password;
-        }
-        public String getCompid() {
-            return compid;
-        }
         public String getClitool() {
             return clitool;
         }
-        public boolean getUseOffline() {
-            return useoffline;
+        public String getServerurl() {
+            return serverurl;
         }
         public String getPerlpath() {
             return perlpath;
         }
+        /*public JSONObject stringtoJson(String s) {
+            return (JSONObject) JSONSerializer.toJSON(s);
+        }*/
     }
 }
 
