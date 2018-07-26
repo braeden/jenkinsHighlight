@@ -56,12 +56,12 @@ public class CastHighlightPublisher extends Recorder {
     private final String password;
     private final String compid;
 
-    private final Boolean useoffline;
+    private final boolean useonline;
 
     
     // Fields in config.jelly must match the parameter names in the "DataBoundConstructor"
     @DataBoundConstructor
-    public CastHighlightPublisher(String filepath, String appid, String filepathOutput, String extrafields, String login, String password, String compid, Boolean useoffline) {
+    public CastHighlightPublisher(String filepath, String appid, String filepathOutput, String extrafields, String login, String password, String compid, boolean useonline) {
         this.filepath = filepath;
         this.appid = appid;
         this.filepathOutput = filepathOutput;
@@ -69,7 +69,7 @@ public class CastHighlightPublisher extends Recorder {
         this.login = login;
         this.password = password;
         this.compid = compid;
-        this.useoffline = useoffline;
+        this.useonline = useonline;
 
         
     }
@@ -98,8 +98,8 @@ public class CastHighlightPublisher extends Recorder {
     public String getCompid() {
         return compid;
     }
-    public Boolean getUseoffline() {
-        return useoffline;
+    public boolean getUseonline() {
+        return useonline;
     }
     
 /*
@@ -148,7 +148,7 @@ b.smith+Jenkins@castsoftware.com
 
                 }
                         
-                if (!useoffline
+                if (useonline
                 && login != null
                 && password != null
                 && compid != null
@@ -168,7 +168,7 @@ b.smith+Jenkins@castsoftware.com
                     //Online run tool. 
                         
                 } else {
-                    if (!useoffline) {
+                    if (useonline) {
                         message = "Some fields required for online use are empty, ran offline";
                     } else {
                         message = "Ran offline";
