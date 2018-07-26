@@ -16,9 +16,6 @@
     <f:entry title="Full Filepath to Prefered Output *" field="filepathOutput">
       <f:textbox />
     </f:entry>
-    <f:entry title="Application ID" field="appid">
-        <f:textbox />
-    </f:entry>
 
     <f:entry title="Enter Extra Flags for CLI tool" field="extrafields">
         <f:textbox />
@@ -34,6 +31,10 @@
     <f:entry title="Password" field="password" type="password">
         <f:password />
     </f:entry>
+    <f:entry title="Application ID" field="appid">
+        <f:textbox />
+    </f:entry>
+
     <f:entry title="Company ID" field="compid">
         <f:textbox />
     </f:entry>
