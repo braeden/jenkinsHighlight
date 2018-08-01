@@ -17,6 +17,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import hudson.EnvVars;
 
 
 /*
@@ -48,7 +49,7 @@ TODO:
  */
 public class CastHighlightPublisher extends Recorder {
 
-    private final String filepath;
+    private String filepath;
     private final String appid;
     private final String filepathOutput;
     private final String extrafields;
@@ -115,15 +116,17 @@ b.smith+Jenkins@castsoftware.com
     
     
     @Override
-    public boolean perform(AbstractBuild build, Launcher launcher, BuildListener listener) {
+    public boolean perform(AbstractBuild build, Launcher launcher, BuildListener listener) throws IOException, InterruptedException {
         String message="";
-        
+        final EnvVars env = build.getEnvironment(listener);
+
         JSONObject formGlobal = (JSONObject) JSONSerializer.toJSON(getDescriptor().getDetails());
         if (formGlobal != null &&
         formGlobal.getString("clitool") != null &&
         formGlobal.getString("perlpath") != null &&
         filepath != null &&
         filepathOutput != null) {
+            filepath = env.expand(filepath); //For env interp = https://stackoverflow.com/questions/30512887/variable-substitution-in-jenkins-plugin
             String clitool = formGlobal.getString("clitool");
             String serverurl = formGlobal.getString("serverurl");
             String perlpath = formGlobal.getString("perlpath");
