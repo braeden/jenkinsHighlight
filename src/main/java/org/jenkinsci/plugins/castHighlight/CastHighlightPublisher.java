@@ -57,12 +57,14 @@ public class CastHighlightPublisher extends Recorder {
     private final String password;
     private final String compid;
 
+    private String snapshotlabel;
+
     private final boolean useonline;
 
     
     // Fields in config.jelly must match the parameter names in the "DataBoundConstructor"
     @DataBoundConstructor
-    public CastHighlightPublisher(String filepath, String appid, String filepathOutput, String extrafields, String login, String password, String compid, boolean useonline) {
+    public CastHighlightPublisher(String filepath, String appid, String filepathOutput, String extrafields, String login, String password, String compid, String snapshotlabel, boolean useonline) {
         this.filepath = filepath;
         this.appid = appid;
         this.filepathOutput = filepathOutput;
@@ -71,7 +73,7 @@ public class CastHighlightPublisher extends Recorder {
         this.password = password;
         this.compid = compid;
         this.useonline = useonline;
-
+        this.snapshotlabel = snapshotlabel;
         
     }
 
@@ -98,6 +100,9 @@ public class CastHighlightPublisher extends Recorder {
     }
     public String getCompid() {
         return compid;
+    }
+    public String getSnapshotlabel() {
+        return snapshotlabel;
     }
     public boolean getUseonline() {
         return useonline;
@@ -148,7 +153,6 @@ b.smith+Jenkins@castsoftware.com
                             "--analyzerDir", perlpath};
                 for (String s : baseString) {
                     commandAddition.add(s);
-
                 }
                         
                 if (useonline
@@ -157,6 +161,7 @@ b.smith+Jenkins@castsoftware.com
                 && compid != null
                 && appid != null
                 && serverurl != null) {
+                    //ONLINE
                     message = "Ran online";
                     String[] strs = new String[]{
                         "--login", login, 
@@ -167,8 +172,12 @@ b.smith+Jenkins@castsoftware.com
                     for (String s : strs) {
                         commandAddition.add(s);
                     }
-                    //Online command
-                    //Online run tool. 
+                    if (snapshotlabel != null) {
+                        String tempSnapshotlabel = env.expand(snapshotlabel);
+                        commandAddition.add("--snapshotLabel");
+                        commandAddition.add("\""+tempSnapshotlabel+"\"");
+                    }
+         
                         
                 } else {
                     if (useonline) {
@@ -207,10 +216,6 @@ b.smith+Jenkins@castsoftware.com
                     }
                     int status = p.waitFor();
                     listener.getLogger().println("Exited with status: " + status);
-                    //listener.getLogger().println(System.getenv("jenkins.hudsonUrl"));
-                    //Path currentRelativePath = Paths.get("");
-                    //String uiui = currentRelativePath.toAbsolutePath().toString();
-                    //listener.getLogger().println("Current relative path is: " + uiui);
                 } catch(IOException e) {
                     e.printStackTrace();  
                     message = "IO Exception";
@@ -223,9 +228,7 @@ b.smith+Jenkins@castsoftware.com
                 listener.getLogger().println("Highlight Tool: "+ clitool);
                 listener.getLogger().println("Project Path: "+ filepath);
                 listener.getLogger().println("Output Path: "+ filepathOutput);
-                listener.getLogger().println("Perl Path: "+ perlpath);
-
-                
+                listener.getLogger().println("Perl Path: "+ perlpath);            
 
             }
             

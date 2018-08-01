@@ -23,19 +23,24 @@
       
     <f:optionalBlock inline="true" title="Use Highlight Online" field="useonline"
       description="Disable the login and upload feature of Highlight, just export CSVs.">
-        <f:entry title="Login" field="login">
+        <f:entry title="Login *" field="login">
             <f:textbox />
         </f:entry>
-        <f:entry title="Password" field="password" type="password">
+        <f:entry title="Password *" field="password" type="password">
             <f:password />
         </f:entry>
-        <f:entry title="Application ID" field="appid">
+        <f:entry title="Application ID *" field="appid">
             <f:textbox />
         </f:entry>
 
-        <f:entry title="Company ID" field="compid">
+        <f:entry title="Company ID *" field="compid">
             <f:textbox />
         </f:entry>
+        
+        <f:entry title="Snapshot Label" field="snapshotlabel">
+            <f:textbox />
+        </f:entry>
+        
     </f:optionalBlock>
 
 </j:jelly>
