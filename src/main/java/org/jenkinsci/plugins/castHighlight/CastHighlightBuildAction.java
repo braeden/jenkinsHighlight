@@ -7,15 +7,8 @@ import java.util.Base64;
 import java.net.*;
 import java.io.*;
 import java.util.Set;
-
-import java.util.Iterator;
-//import org.json.simple.JSONArray;
-//import org.json.simple.JSONObject;
 import net.sf.json.JSONObject;
-import net.sf.json.JSONSerializer;
 import net.sf.json.JSONArray;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 public class CastHighlightBuildAction implements Action {
 
@@ -71,13 +64,13 @@ public class CastHighlightBuildAction implements Action {
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
             e.printStackTrace(pw);
-            outputMessage = sw.toString();
+            outputMessage = "<tt>"+sw.toString()+"</tt>";
         } catch(IOException e) {
             System.out.println(e);
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
             e.printStackTrace(pw);
-            outputMessage = sw.toString();
+            outputMessage = "<tt>"+sw.toString()+"</tt>";
         }
         return outputMessage;
     }
