@@ -8,6 +8,7 @@ import java.net.*;
 import java.io.*;
 import java.util.Set;
 import net.sf.json.JSONObject;
+import org.apache.commons.lang.StringUtils;
 import net.sf.json.JSONArray;
 
 public class CastHighlightBuildAction implements Action {
@@ -53,7 +54,9 @@ public class CastHighlightBuildAction implements Action {
                 for (final String key : keys) {
                     String value = metrics.getString(key);
                     if (!key.equals("cloudReadyDetail")) {
-                        outputMessage += key+" : "+value+"<br>";
+                        String keyWords = StringUtils.capitalize(StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(key), " ")); // Your Camel Case Text
+
+                        outputMessage += keyWords+" : "+value+"<br>";
                     }
                     //System.out.println(key);
                 }
