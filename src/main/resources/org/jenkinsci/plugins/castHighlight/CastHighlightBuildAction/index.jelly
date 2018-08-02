@@ -4,7 +4,7 @@
         <l:main-panel>
             <h1>${it.displayName}</h1>
             <h2>Check "Console Output" for Highlight CLI details</h2>
-            <h2>Build #${it.buildNumber} CAST Highlight Results: </h2><h3> ${it.highlightResults}</h3>
+            <h2>Build #${it.buildNumber} CAST Highlight Results: </h2><p> ${it.highlightResults}</p>
         </l:main-panel>
     </l:layout>
 </j:jelly>

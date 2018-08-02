@@ -10,6 +10,10 @@ import java.util.Set;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
 import net.sf.json.JSONArray;
+import java.util.Arrays;
+import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CastHighlightBuildAction implements Action {
 
@@ -50,19 +54,47 @@ public class CastHighlightBuildAction implements Action {
                 //String out = first.getString("totalLinesOfCode");
                 //System.out.println(out);
                 final Set<String> keys = metrics.keySet();
-                
+                List<String> exclude = Arrays.asList( //Exclude these keys
+                    "businessImpact", 
+                    "roarIndex", 
+                    "technicalDebt", 
+                    "maintenanceRecordedFTE", 
+                    "cloudReadyScan",
+                    "cloudReadyDetail"
+                );
+                 List<String> mult = Arrays.asList( //Multiply value x100
+                    "softwareResiliency", 
+                    "softwareAgility", 
+                    "softwareElegance", 
+                    "maintenanceRecordedFTE", 
+                    "boosters",
+                    "blockers",
+                    "cloudReady"
+                );
+                Map<String, String> keyChange = new HashMap<String, String>() { //Modfiy these from CamelCase conversion
+                {
+                    put("Cloud Ready", "CloudReady");
+                    put("Boosters", "Cloud Boosters");
+                    put("Blockers", "Cloud Blockers");
+                    put("Roadblocks", "Cloud Roadblocks");
+                }};
+
                 for (final String key : keys) {
                     String value = metrics.getString(key);
-                    if (!key.equals("cloudReadyDetail")) {
+                    if (!exclude.contains(key)) {
                         String keyWords = StringUtils.capitalize(StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(key), " ")); // Your Camel Case Text
-
-                        outputMessage += keyWords+" : "+value+"<br>";
+                        if (keyChange.get(keyWords) != null) {
+                            keyWords = keyChange.get(keyWords);
+                        }
+                        if (mult.contains(key)) {
+                            double doubleValue = Double.parseDouble(value);
+                            doubleValue *= 100;
+                            value = String.format("%.1f", doubleValue);
+                        }
+                        outputMessage += "<b>"+keyWords+"</b> : "+value+"<br>";
                     }
-                    //System.out.println(key);
+                    System.out.println(key);
                 }
-                //https://stackoverflow.com/questions/1568762/accessing-members-of-items-in-a-jsonarray-with-java
-                //http://json-lib.sourceforge.net/apidocs/net/sf/json/JSONObject.html
-                //http://json-lib.sourceforge.net/apidocs/net/sf/json/JSONArray.html
             }
         } catch(MalformedURLException e) {
             System.out.println(e);
