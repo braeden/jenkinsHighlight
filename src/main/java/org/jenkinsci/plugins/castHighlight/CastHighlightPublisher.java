@@ -59,7 +59,7 @@ public class CastHighlightPublisher extends Recorder {
 
     private String snapshotlabel;
 
-    private final boolean useonline;
+    private boolean useonline;
 
     
     // Fields in config.jelly must match the parameter names in the "DataBoundConstructor"
@@ -160,7 +160,8 @@ b.smith+Jenkins@castsoftware.com
                 && password != null
                 && compid != null
                 && appid != null
-                && serverurl != null) {
+                && serverurl != null
+                && !serverurl.isEmpty()){
                     //ONLINE
                     message = "Ran online";
                     String[] strs = new String[]{
@@ -168,7 +169,7 @@ b.smith+Jenkins@castsoftware.com
                         "--password", password, 
                         "--applicationId", appid,
                         "--companyId", compid,
-                        "--serverUrl", serverurl};
+                        "--serverUrl", "\""+serverurl+"\""};
                     for (String s : strs) {
                         commandAddition.add(s);
                     }
@@ -177,11 +178,12 @@ b.smith+Jenkins@castsoftware.com
                         commandAddition.add("--snapshotLabel");
                         commandAddition.add("\""+tempSnapshotlabel+"\"");
                     }
-         
+                    
                         
                 } else {
                     if (useonline) {
-                        message = "Some fields required for online use are empty, ran offline";
+                        message = "Some fields required for online use are empty, ran offline (and un-enabled checkbox)";
+                        useonline = false;
                     } else {
                         message = "Ran offline";
                     }
@@ -216,6 +218,12 @@ b.smith+Jenkins@castsoftware.com
                     }
                     int status = p.waitFor();
                     listener.getLogger().println("Exited with status: " + status);
+                    if (useonline) {
+                        //Start proper post-build action, to get highlight stats
+                     
+                        CastHighlightBuildAction buildAction = new CastHighlightBuildAction(login, password, appid, compid, serverurl, build);
+                        build.addAction(buildAction);
+                    }
                 } catch(IOException e) {
                     e.printStackTrace();  
                     message = "IO Exception";
