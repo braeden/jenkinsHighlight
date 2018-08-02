@@ -52,7 +52,9 @@ public class CastHighlightBuildAction implements Action {
                 
                 for (final String key : keys) {
                     String value = metrics.getString(key);
-                    outputMessage += key+" : "+value+"<br>";
+                    if (!key.equals("cloudReadyDetail")) {
+                        outputMessage += key+" : "+value+"<br>";
+                    }
                     //System.out.println(key);
                 }
                 //https://stackoverflow.com/questions/1568762/accessing-members-of-items-in-a-jsonarray-with-java

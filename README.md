@@ -27,8 +27,10 @@
 
 6. Under "Post-build Actions", click "Add post-build action", select "Run CAST Highlight"
 
-7. Fill out the information (* = mandatory) 
+7. Fill out the information (* = mandatory)
 
 8. Click "Apply" then "Save"
 
 9. Click "Build Now" on your project, and check the "Console Output"
+
+10. If running online, check the "Highlight Results" tab in the build, for raw-extracted results
