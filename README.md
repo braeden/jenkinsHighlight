@@ -1,6 +1,7 @@
 # To Install:
 
 1. Git Clone this repo: ```git clone https://github.com/braeden123/jenkinsHighlight.git```
+1.5 (Optional) Build it yourself from source, using ```mvn install```
 
 2. On the Jenkins homepage, click, "Manage Jenkins"
 
@@ -8,7 +9,7 @@
 
 4. Click on the "Advanced" tab
 
-5. Scroll to "Upload Plugin", click "Choose File" and navigate to the .hpi file in the "Target" forlder of the cloned repo
+5. Scroll to "Upload Plugin", click "Choose File" and navigate to the .hpi file in the "Target" folder of the cloned repo
 
 
 # To Use:

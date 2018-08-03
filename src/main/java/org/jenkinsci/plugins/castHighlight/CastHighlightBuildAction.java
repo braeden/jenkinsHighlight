@@ -82,7 +82,7 @@ public class CastHighlightBuildAction implements Action {
                 for (final String key : keys) {
                     String value = metrics.getString(key);
                     if (!exclude.contains(key)) {
-                        String keyWords = StringUtils.capitalize(StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(key), " ")); // Your Camel Case Text
+                        String keyWords = camelCase(key); // Your Camel Case Text
                         if (keyChange.get(keyWords) != null) {
                             keyWords = keyChange.get(keyWords);
                         }
@@ -91,10 +91,42 @@ public class CastHighlightBuildAction implements Action {
                             doubleValue *= 100;
                             value = String.format("%.1f", doubleValue);
                         }
-                        outputMessage += "<b>"+keyWords+"</b> : "+value+"<br>";
+                        outputMessage += formatKeyPairOutput(keyWords, value);
                     }
-                    System.out.println(key);
+                    //System.out.println(key);
                 }
+                JSONObject cloudDetails = JSONArray.fromObject(metrics.get("cloudReadyDetail")).getJSONObject(0);
+                outputMessage += formatKeyPairOutput("Technology", cloudDetails.getString("technology"));
+                //cloudDetails = JSONArray.fromObject(cloudDetails.get("cloudReadyDetail")).getJSONObject(0);
+                /*final Set<String> cloudKeys = cloudDetails.keySet();
+                for (final String cloudKey : cloudKeys) {
+                    String cloudKeyWords = StringUtils.capitalize(StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(cloudKey), " "));
+                    String cloudValue = cloudDetails.getString(cloudKey);
+                    outputMessage += "<b>"+cloudKeyWords+"</b> : "+cloudValue+"<br>";
+                }*/
+                
+                outputMessage += "=====CLOUD DETAILS=====<br>";
+                JSONArray innerCloudDetailsArray = JSONArray.fromObject(cloudDetails.get("cloudReadyDetails"));
+                for (int i=0; i<innerCloudDetailsArray.size(); i++) {
+                    JSONObject innerCloudDetails = innerCloudDetailsArray.getJSONObject(i);
+                    if (innerCloudDetails.getBoolean("triggered")) {//containsKey("files")) {
+                        //Set<String> innerCloudKeys = innerCloudDetails.keySet();
+                        //for (final String innerCloudKey : innerCloudKeys) {
+                        //    if (innerCloudKey.equals("files")) {
+                                JSONArray filesArray = JSONArray.fromObject(innerCloudDetails.get("files"));
+                                for (int f = 0; f < filesArray.size(); f++) {
+                                    outputMessage += filesArray.getString(f)+"<br>";
+                                }
+                        //    } 
+                        //    if (innerCloudKey.equals("cloudRequirement")) {
+                                JSONObject extendedCloudIdent = JSONObject.fromObject(innerCloudDetails.getString("cloudRequirement"));
+                                outputMessage += "<br><a href="+extendedCloudIdent.getString("hrefDoc")+">"+
+                                    extendedCloudIdent.getString("display")+" ["+extendedCloudIdent.getString("ruleType")+"]"+
+                                    "</a><br>";
+                        outputMessage += "--------<br>";
+                    }
+                }
+
             }
         } catch(MalformedURLException e) {
             System.out.println(e);
@@ -111,7 +143,12 @@ public class CastHighlightBuildAction implements Action {
         }
         return outputMessage;
     }
-    
+    public String camelCase(String input) {
+        return(StringUtils.capitalize(StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(input), " ")));
+    }
+    public String formatKeyPairOutput(String key, String value) {
+        return("<b>" + key + "</b> : " + value + "<br>");
+    }
     @Override
     public String getUrlName() {
         return "highlight";
