@@ -34,7 +34,11 @@ public class CastHighlightBuildAction implements Action {
     public String getDisplayName() {
         return "Highlight Results";
     }
-
+    
+    public String getHighlightLogo() {
+        return("<img src=\"https://www.casthighlight.com/wp-content/uploads/2016/03/CH_Logo_Tagline_Colored_LR.png\" alt=\"CAST Highlight\"><br>");
+    }
+    
     public String getHighlightResults() {
         String highlightAuth = Base64.getEncoder().encodeToString((user+":"+pass).getBytes());
         String outputMessage = "";
