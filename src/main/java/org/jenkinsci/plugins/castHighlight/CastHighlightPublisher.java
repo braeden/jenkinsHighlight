@@ -165,8 +165,8 @@ b.smith+Jenkins@castsoftware.com
                     //ONLINE
                     message = "Ran online";
                     String[] strs = new String[]{
-                        "--login", "\""+login+"\"", 
-                        "--password", "\""+password+"\"", 
+                        "--login", login, 
+                        "--password", password, 
                         "--applicationId", appid,
                         "--companyId", compid,
                         "--serverUrl", "\""+serverurl+"\""};
@@ -197,7 +197,7 @@ b.smith+Jenkins@castsoftware.com
                         commandAddition.add(s.trim());
                     }
                 }
-                /////// Actually run command //////////////////////////
+                //////////////// run command //////////////////////////
                 
                 ///////////////////////////////////////////////////////
                 
@@ -219,8 +219,7 @@ b.smith+Jenkins@castsoftware.com
                     int status = p.waitFor();
                     listener.getLogger().println("Exited with status: " + status);
                     if (useonline) {
-                        //Start proper post-build action, to get highlight stats
-                     
+                        //Start proper post-build action, to get highlight stats                  
                         CastHighlightBuildAction buildAction = new CastHighlightBuildAction(login, password, appid, compid, serverurl, build);
                         build.addAction(buildAction);
                     }
@@ -236,21 +235,9 @@ b.smith+Jenkins@castsoftware.com
                 listener.getLogger().println("Highlight Tool: "+ clitool +" | Exists: " + String.valueOf(cliFile.exists()));
                 listener.getLogger().println("Project Path: "+ filepath + " | Exists: " + String.valueOf(projectDir.exists()));
                 listener.getLogger().println("Output Path: "+ filepathOutput + " | Exists: " + String.valueOf(outputDir.exists()));
-                listener.getLogger().println("Perl Path: "+ perlpath + " | Exists: " +String.valueOf(perlDir.exists()));            
-
+                listener.getLogger().println("Perl Path: "+ perlpath + " | Exists: " +String.valueOf(perlDir.exists()));
             }
             
-        /*
-        java -jar HighlightAutomation.jar 
-        --workingDir "C:\highlight-myproject"
-        --sourceDir "C:\myproject\src" 
-        --login "john.doe@acme.com" 
-        --password "*******"
-        --applicationId 1234
-        --companyId 5678
-        --serverUrl "https://rpa.casthighlight.com"
-        */
-          
         } else {
             listener.getLogger().println("\nHIGHLIGHT MESSAGE: Highlight failed to execute, one or more of the mandatory config fields are empty");
         }

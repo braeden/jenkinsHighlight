@@ -2,9 +2,8 @@
     <l:layout>
         <st:include it="${it.build}" page="sidepanel.jelly"/>
         <l:main-panel>
-            <h1>${it.displayName}</h1>
             <h2>Check "Console Output" for Highlight CLI details</h2>
-            <h2>Build #${it.buildNumber} CAST Highlight Results: </h2><p> ${it.highlightResults}</p>
+            <h2>Build #${it.buildNumber} | Latest pulled CAST Highlight Results: </h2><p> ${it.highlightResults}</p>
         </l:main-panel>
     </l:layout>
 </j:jelly>
