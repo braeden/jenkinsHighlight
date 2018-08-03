@@ -109,20 +109,18 @@ public class CastHighlightBuildAction implements Action {
                 JSONArray innerCloudDetailsArray = JSONArray.fromObject(cloudDetails.get("cloudReadyDetails"));
                 for (int i=0; i<innerCloudDetailsArray.size(); i++) {
                     JSONObject innerCloudDetails = innerCloudDetailsArray.getJSONObject(i);
-                    if (innerCloudDetails.getBoolean("triggered")) {//containsKey("files")) {
-                        //Set<String> innerCloudKeys = innerCloudDetails.keySet();
-                        //for (final String innerCloudKey : innerCloudKeys) {
-                        //    if (innerCloudKey.equals("files")) {
-                                JSONArray filesArray = JSONArray.fromObject(innerCloudDetails.get("files"));
-                                for (int f = 0; f < filesArray.size(); f++) {
-                                    outputMessage += filesArray.getString(f)+"<br>";
-                                }
-                        //    } 
-                        //    if (innerCloudKey.equals("cloudRequirement")) {
-                                JSONObject extendedCloudIdent = JSONObject.fromObject(innerCloudDetails.getString("cloudRequirement"));
-                                outputMessage += "<br><a href="+extendedCloudIdent.getString("hrefDoc")+">"+
-                                    extendedCloudIdent.getString("display")+" ["+extendedCloudIdent.getString("ruleType")+"]"+
-                                    "</a><br>";
+                    if (innerCloudDetails.getBoolean("triggered")) {
+                        JSONObject extendedCloudIdent = JSONObject.fromObject(innerCloudDetails.getString("cloudRequirement"));
+                        outputMessage += "<br><a href="+extendedCloudIdent.getString("hrefDoc")+">"+
+                            extendedCloudIdent.getString("display")+" ["+extendedCloudIdent.getString("ruleType")+"]"+
+                            "</a><br>";
+                        
+                        JSONArray filesArray = JSONArray.fromObject(innerCloudDetails.get("files"));
+                        if (!filesArray.isEmpty()) {
+                            for (int f = 0; f < filesArray.size(); f++) {
+                                outputMessage += filesArray.getString(f)+"<br>";
+                            }
+                        }
                         outputMessage += "--------<br>";
                     }
                 }
