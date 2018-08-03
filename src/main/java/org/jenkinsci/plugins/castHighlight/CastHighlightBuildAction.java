@@ -97,13 +97,6 @@ public class CastHighlightBuildAction implements Action {
                 }
                 JSONObject cloudDetails = JSONArray.fromObject(metrics.get("cloudReadyDetail")).getJSONObject(0);
                 outputMessage += formatKeyPairOutput("Technology", cloudDetails.getString("technology"));
-                //cloudDetails = JSONArray.fromObject(cloudDetails.get("cloudReadyDetail")).getJSONObject(0);
-                /*final Set<String> cloudKeys = cloudDetails.keySet();
-                for (final String cloudKey : cloudKeys) {
-                    String cloudKeyWords = StringUtils.capitalize(StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(cloudKey), " "));
-                    String cloudValue = cloudDetails.getString(cloudKey);
-                    outputMessage += "<b>"+cloudKeyWords+"</b> : "+cloudValue+"<br>";
-                }*/
                 
                 outputMessage += "=====CLOUD DETAILS=====<br>";
                 JSONArray innerCloudDetailsArray = JSONArray.fromObject(cloudDetails.get("cloudReadyDetails"));
@@ -116,12 +109,12 @@ public class CastHighlightBuildAction implements Action {
                             "</a><br>";
                         
                         JSONArray filesArray = JSONArray.fromObject(innerCloudDetails.get("files"));
-                        if (!filesArray.isEmpty()) {
-                            for (int f = 0; f < filesArray.size(); f++) {
+                        for (int f = 0; f < filesArray.size(); f++) {
+                            if (filesArray.getString(f) != "null") {
                                 outputMessage += filesArray.getString(f)+"<br>";
                             }
                         }
-                        outputMessage += "--------<br>";
+                        outputMessage += "--------------";
                     }
                 }
 
