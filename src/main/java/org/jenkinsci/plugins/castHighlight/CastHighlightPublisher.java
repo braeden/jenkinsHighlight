@@ -131,6 +131,7 @@ b.smith+Jenkins@castsoftware.com
         formGlobal.getString("perlpath") != null &&
         filepath != null &&
         filepathOutput != null) {
+            //Minimum configs are filled out
             filepath = env.expand(filepath); //For env interp = https://stackoverflow.com/questions/30512887/variable-substitution-in-jenkins-plugin
             String clitool = formGlobal.getString("clitool");
             String serverurl = formGlobal.getString("serverurl");
@@ -147,13 +148,14 @@ b.smith+Jenkins@castsoftware.com
             projectDir.exists() && projectDir.isDirectory() &&
             outputDir.exists() && outputDir.isDirectory() &&
             perlDir.exists() && perlDir.isDirectory()) { 
+                //All files/dirs exist according to java
                 String[] baseString = new String[]{"java", "-jar", clitool, 
                             "--workingDir", filepathOutput,
                             "--sourceDir", filepath,
                             "--analyzerDir", perlpath};
                 for (String s : baseString) {
-                    commandAddition.add(s);
-                }
+                    commandAddition.add(s); //Append start of command pattern, dirs/file
+                } 
                         
                 if (useonline
                 && login != null
@@ -162,7 +164,7 @@ b.smith+Jenkins@castsoftware.com
                 && appid != null
                 && serverurl != null
                 && !serverurl.isEmpty()){
-                    //ONLINE
+                    //Selected "Use Online" and fields are populated
                     message = "Ran online";
                     String[] strs = new String[]{
                         "--login", login, 
@@ -171,9 +173,9 @@ b.smith+Jenkins@castsoftware.com
                         "--companyId", compid,
                         "--serverUrl", "\""+serverurl+"\""};
                     for (String s : strs) {
-                        commandAddition.add(s);
+                        commandAddition.add(s); //Additional online commands appended
                     }
-                    if (snapshotlabel != null) {
+                    if (snapshotlabel != null) { //Optional snapshot label appended
                         String tempSnapshotlabel = env.expand(snapshotlabel);
                         commandAddition.add("--snapshotLabel");
                         commandAddition.add("\""+tempSnapshotlabel+"\"");
@@ -183,12 +185,11 @@ b.smith+Jenkins@castsoftware.com
                 } else {
                     if (useonline) {
                         message = "Some fields required for online use are empty, ran offline (and un-enabled checkbox)";
-                        useonline = false;
+                        useonline = false; //Switch sign of checkbox is stuff is missing
                     } else {
                         message = "Ran offline";
                     }
-                    commandAddition.add("--skipUpload");
-                    //offline
+                    commandAddition.add("--skipUpload"); //Override of online stuff, if forced offline
                 }
                 
                 if (extrafields != null) {
@@ -197,16 +198,14 @@ b.smith+Jenkins@castsoftware.com
                         commandAddition.add(s.trim());
                     }
                 }
-                //////////////// run command //////////////////////////
                 
-                ///////////////////////////////////////////////////////
-                
+                //ATTEMPT TO EXECUTE collected command
                 try {
                     ProcessBuilder pb = new ProcessBuilder(commandAddition);
                     listener.getLogger().println("\nHIGHLIGHT MESSAGE: "+ message);
                     listener.getLogger().print(" > ");
                     for (String s: pb.command()) {
-                        //Print the command used
+                        //Print the command used to "Console Output"
                         listener.getLogger().print(s+" ");
                     }
                     listener.getLogger().print("\n");
@@ -214,10 +213,10 @@ b.smith+Jenkins@castsoftware.com
                     BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
                     String s = "";
                     while((s = in.readLine()) != null){
-                         listener.getLogger().println(s);
+                         listener.getLogger().println(s); //Read in STDOUT for command and append to console (highlight details)
                     }
                     int status = p.waitFor();
-                    listener.getLogger().println("Exited with status: " + status);
+                    listener.getLogger().println("Exited with status: " + status); //See exit status of highlight (somehow the highlight tool never throws the right code w/ errors - always 0)
                     if (useonline) {
                         //Start proper post-build action, to get highlight stats                  
                         CastHighlightBuildAction buildAction = new CastHighlightBuildAction(login, password, appid, compid, serverurl, build);
@@ -231,14 +230,16 @@ b.smith+Jenkins@castsoftware.com
                     message = "Interupt Exception";
                 }
             } else {
+                //Get paths from what java thinks, debugging stuff 
                 listener.getLogger().println("\nHIGHLIGHT MESSAGE: One or more of the mandatory paths is incorrect.");
-                listener.getLogger().println("Highlight Tool: "+ clitool +" | Exists: " + String.valueOf(cliFile.exists()));
-                listener.getLogger().println("Project Path: "+ filepath + " | Exists: " + String.valueOf(projectDir.exists()));
-                listener.getLogger().println("Output Path: "+ filepathOutput + " | Exists: " + String.valueOf(outputDir.exists()));
-                listener.getLogger().println("Perl Path: "+ perlpath + " | Exists: " +String.valueOf(perlDir.exists()));
+                listener.getLogger().println("Highlight Tool: "+ cliFile.getPath() +" | Exists: " + String.valueOf(cliFile.exists()));
+                listener.getLogger().println("Project Path: "+ projectDir.getPath() + " | Exists: " + String.valueOf(projectDir.exists()));
+                listener.getLogger().println("Output Path: "+ outputDir.getPath() + " | Exists: " + String.valueOf(outputDir.exists()));
+                listener.getLogger().println("Perl Path: "+ perlDir.getPath() + " | Exists: " +String.valueOf(perlDir.exists()));
             }
             
         } else {
+            //TODO, fill out useful debugging info here, 
             listener.getLogger().println("\nHIGHLIGHT MESSAGE: Highlight failed to execute, one or more of the mandatory config fields are empty");
         }
         
@@ -337,9 +338,6 @@ b.smith+Jenkins@castsoftware.com
         public String getPerlpath() {
             return perlpath;
         }
-        /*public JSONObject stringtoJson(String s) {
-            return (JSONObject) JSONSerializer.toJSON(s);
-        }*/
     }
 }
 

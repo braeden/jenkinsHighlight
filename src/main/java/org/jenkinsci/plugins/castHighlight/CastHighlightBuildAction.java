@@ -40,10 +40,10 @@ public class CastHighlightBuildAction implements Action {
     }
     
     public String getHighlightResults() {
-        String highlightAuth = Base64.getEncoder().encodeToString((user+":"+pass).getBytes());
+        String highlightAuth = Base64.getEncoder().encodeToString((user+":"+pass).getBytes()); //Encode for API call
         String outputMessage = "";
         try {
-            URL url = new URL(serverurl+"/WS2/domains/"+compid+"/applications/"+appid);
+            URL url = new URL(serverurl+"/WS2/domains/"+compid+"/applications/"+appid); //Pray that serverurl is formatted correctly. 
             URLConnection uc = url.openConnection();
             uc.setRequestProperty("X-Requested-With", "Curl");
             uc.setRequestProperty("Authorization", "Basic "+highlightAuth);
@@ -51,10 +51,10 @@ public class CastHighlightBuildAction implements Action {
             BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
 
             String inputLine;
-            while ((inputLine = in.readLine()) != null) {
+            while ((inputLine = in.readLine()) != null) { //Read each return line from URL request
                 
                 JSONObject collectiveJson = JSONObject.fromObject(inputLine);
-                JSONObject metrics = JSONArray.fromObject(collectiveJson.get("metrics")).getJSONObject(0);
+                JSONObject metrics = JSONArray.fromObject(collectiveJson.get("metrics")).getJSONObject(0); //Everything useful is in metrics
                 
                 List<String> exclude = Arrays.asList( //Exclude these keys
                     "businessImpact", 
@@ -64,7 +64,7 @@ public class CastHighlightBuildAction implements Action {
                     "cloudReadyScan",
                     "cloudReadyDetail"
                 );
-                 List<String> mult = Arrays.asList( //Multiply value x100
+                 List<String> mult = Arrays.asList( //Multiply value x100 (For highlight correct scale)
                     "softwareResiliency", 
                     "softwareAgility", 
                     "softwareElegance",
@@ -72,7 +72,7 @@ public class CastHighlightBuildAction implements Action {
                     "blockers",
                     "cloudReady"
                 );
-                Map<String, String> keyChange = new HashMap<String, String>() { //Modfiy these from CamelCase conversion
+                Map<String, String> keyChange = new HashMap<String, String>() { //Exceptions to the camelCase conversion, special key changes
                 {
                     put("Cloud Ready", "CloudReady");
                     put("Boosters", "Cloud Boosters");
@@ -94,22 +94,23 @@ public class CastHighlightBuildAction implements Action {
                             if (mult.contains(key)) {
                                 doubleValue *= 100;
                             }
-                            value = String.format("%.1f", doubleValue); //Round to one dec place
+                            value = String.format("%.1f", doubleValue); //Round to one dec place (all nums with dec place)
                         }
                         outputMessage += formatKeyPairOutput(keyWords, value);
                     }
                 }
                 
-                outputMessage += "<hr><h3>CloudReady Details</h3>";
+                //CloudReady Details parsing below
+                outputMessage += "<hr><h3>CloudReady Details</h3>"; 
                 JSONObject cloudDetails = JSONArray.fromObject(metrics.get("cloudReadyDetail")).getJSONObject(0);
-                outputMessage += formatKeyPairOutput("Technology", cloudDetails.getString("technology")); //Cloud Technology print
+                outputMessage += formatKeyPairOutput("Technology", cloudDetails.getString("technology")); //Pull the Technology detected prior to rest of cloud details
                 
                 JSONArray innerCloudDetailsArray = JSONArray.fromObject(cloudDetails.get("cloudReadyDetails"));
-                for (int i=0; i<innerCloudDetailsArray.size(); i++) {
-                    JSONObject innerCloudDetails = innerCloudDetailsArray.getJSONObject(i);
-                    if (innerCloudDetails.getBoolean("triggered")) {
-                        //If the insight is actually detected as "triggered"
-                        JSONObject extendedCloudIdent = JSONObject.fromObject(innerCloudDetails.getString("cloudRequirement"));
+                for (int i=0; i<innerCloudDetailsArray.size(); i++) { //Get every insight sent
+                    JSONObject innerCloudDetails = innerCloudDetailsArray.getJSONObject(i); //Turn each insight into a JSONObject
+                    if (innerCloudDetails.getBoolean("triggered")) { //If the insight is actually detected as "triggered"
+                        JSONObject extendedCloudIdent = JSONObject.fromObject(innerCloudDetails.getString("cloudRequirement")); //Cloud indentification subsection
+                        
                         outputMessage += "<br><a href="+extendedCloudIdent.getString("hrefDoc")+">"+
                             extendedCloudIdent.getString("display")+
                             " ["+extendedCloudIdent.getString("ruleType")+"]"+
@@ -121,7 +122,7 @@ public class CastHighlightBuildAction implements Action {
                                 outputMessage += "<code>"+filesArray.getString(f)+"</code><br>"; //Print each file that its detected in
                             }
                         }
-                        outputMessage += "<hr>";
+                        outputMessage += "<hr>"; //Break with line after each insight
                     }
                 }
 
