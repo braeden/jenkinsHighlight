@@ -52,7 +52,6 @@ public class CastHighlightBuildAction implements Action {
                 JSONObject collectiveJson = JSONObject.fromObject(inputLine);
                 JSONObject metrics = JSONArray.fromObject(collectiveJson.get("metrics")).getJSONObject(0);
                 
-                final Set<String> keys = metrics.keySet();
                 List<String> exclude = Arrays.asList( //Exclude these keys
                     "businessImpact", 
                     "roarIndex", 
@@ -77,6 +76,7 @@ public class CastHighlightBuildAction implements Action {
                     put("Roadblocks", "Cloud Roadblocks");
                 }};
 
+                final Set<String> keys = metrics.keySet();
                 for (final String key : keys) {
                     String value = metrics.getString(key);
                     if (!exclude.contains(key)) {
@@ -107,7 +107,8 @@ public class CastHighlightBuildAction implements Action {
                         //If the insight is actually detected as "triggered"
                         JSONObject extendedCloudIdent = JSONObject.fromObject(innerCloudDetails.getString("cloudRequirement"));
                         outputMessage += "<br><a href="+extendedCloudIdent.getString("hrefDoc")+">"+
-                            extendedCloudIdent.getString("display")+" ["+extendedCloudIdent.getString("ruleType")+"]"+
+                            extendedCloudIdent.getString("display")+
+                            " ["+extendedCloudIdent.getString("ruleType")+"]"+
                             "</a><br>"; //Format link with insight
                         
                         JSONArray filesArray = JSONArray.fromObject(innerCloudDetails.get("files"));
@@ -126,13 +127,13 @@ public class CastHighlightBuildAction implements Action {
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
             e.printStackTrace(pw);
-            outputMessage = "<tt>"+sw.toString()+"</tt>";
+            outputMessage = "<code>"+sw.toString()+"</code>";
         } catch(IOException e) {
             System.out.println(e);
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
             e.printStackTrace(pw);
-            outputMessage = "<tt>"+sw.toString()+"</tt>";
+            outputMessage = "<code>"+sw.toString()+"</code>";
         }
         return outputMessage;
     }
