@@ -65,8 +65,7 @@ public class CastHighlightBuildAction implements Action {
                  List<String> mult = Arrays.asList( //Multiply value x100
                     "softwareResiliency", 
                     "softwareAgility", 
-                    "softwareElegance", 
-                    "maintenanceRecordedFTE", 
+                    "softwareElegance",
                     "boosters",
                     "blockers",
                     "cloudReady"
@@ -86,19 +85,22 @@ public class CastHighlightBuildAction implements Action {
                         if (keyChange.get(keyWords) != null) {
                             keyWords = keyChange.get(keyWords);
                         }
-                        if (mult.contains(key)) {
+                        
+                        if (isNumeric(value) && value.contains(".")) {
                             double doubleValue = Double.parseDouble(value);
-                            doubleValue *= 100;
+                            if (mult.contains(key)) {
+                                doubleValue *= 100;
+                            }
                             value = String.format("%.1f", doubleValue);
                         }
                         outputMessage += formatKeyPairOutput(keyWords, value);
                     }
-                    //System.out.println(key);
                 }
+                
+                outputMessage += "<hr><h3>CloudReady Details</h3>";
                 JSONObject cloudDetails = JSONArray.fromObject(metrics.get("cloudReadyDetail")).getJSONObject(0);
                 outputMessage += formatKeyPairOutput("Technology", cloudDetails.getString("technology"));
                 
-                outputMessage += "=====CLOUD DETAILS=====<br>";
                 JSONArray innerCloudDetailsArray = JSONArray.fromObject(cloudDetails.get("cloudReadyDetails"));
                 for (int i=0; i<innerCloudDetailsArray.size(); i++) {
                     JSONObject innerCloudDetails = innerCloudDetailsArray.getJSONObject(i);
@@ -111,10 +113,10 @@ public class CastHighlightBuildAction implements Action {
                         JSONArray filesArray = JSONArray.fromObject(innerCloudDetails.get("files"));
                         for (int f = 0; f < filesArray.size(); f++) {
                             if (filesArray.getString(f) != "null") {
-                                outputMessage += filesArray.getString(f)+"<br>";
+                                outputMessage += "<code>"+filesArray.getString(f)+"</code><br>";
                             }
                         }
-                        outputMessage += "--------------";
+                        outputMessage += "<hr>";
                     }
                 }
 
@@ -139,6 +141,14 @@ public class CastHighlightBuildAction implements Action {
     }
     public String formatKeyPairOutput(String key, String value) {
         return("<b>" + key + "</b> : " + value + "<br>");
+    }
+    public static boolean isNumeric(String str) {
+        try {
+            double d = Double.parseDouble(str);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
     }
     @Override
     public String getUrlName() {

@@ -165,8 +165,8 @@ b.smith+Jenkins@castsoftware.com
                     //ONLINE
                     message = "Ran online";
                     String[] strs = new String[]{
-                        "--login", login, 
-                        "--password", password, 
+                        "--login", "\""+login+"\"", 
+                        "--password", "\""+password+"\"", 
                         "--applicationId", appid,
                         "--companyId", compid,
                         "--serverUrl", "\""+serverurl+"\""};
@@ -232,11 +232,11 @@ b.smith+Jenkins@castsoftware.com
                     message = "Interupt Exception";
                 }
             } else {
-                listener.getLogger().println("\nHIGHLIGHT MESSAGE: One of the mandatory paths is incorrect.");
-                listener.getLogger().println("Highlight Tool: "+ clitool);
-                listener.getLogger().println("Project Path: "+ filepath);
-                listener.getLogger().println("Output Path: "+ filepathOutput);
-                listener.getLogger().println("Perl Path: "+ perlpath);            
+                listener.getLogger().println("\nHIGHLIGHT MESSAGE: One or more of the mandatory paths is incorrect.");
+                listener.getLogger().println("Highlight Tool: "+ clitool +" | Exists: " + String.valueOf(cliFile.exists()));
+                listener.getLogger().println("Project Path: "+ filepath + " | Exists: " + String.valueOf(projectDir.exists()));
+                listener.getLogger().println("Output Path: "+ filepathOutput + " | Exists: " + String.valueOf(outputDir.exists()));
+                listener.getLogger().println("Perl Path: "+ perlpath + " | Exists: " +String.valueOf(perlDir.exists()));            
 
             }
             
