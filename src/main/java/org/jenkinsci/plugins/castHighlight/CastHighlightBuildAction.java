@@ -113,7 +113,7 @@ public class CastHighlightBuildAction implements Action {
                         
                         JSONArray filesArray = JSONArray.fromObject(innerCloudDetails.get("files"));
                         for (int f = 0; f < filesArray.size(); f++) {
-                            if (filesArray.getString(f) != "null") {
+                            if (!filesArray.getString(f).equals("null")) {
                                 outputMessage += "<code>"+filesArray.getString(f)+"</code><br>"; //Print each file that its detected in
                             }
                         }
