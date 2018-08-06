@@ -133,10 +133,12 @@ public class CastHighlightPublisher extends Recorder {
             listener.getLogger().println("-----\nPulling Highlight Results from server:");
             JSONObject metrics = new JSONObject(true); //Initiate a null JSON object (for while() loop)
             int attempts = 1;
-            while(metrics.isNullObject() && attempts < 15) { //Server is slow on it's processing. We need to keep trying...
+            int waitTime = 1;
+            int maxAttempts = 15;
+            while(metrics.isNullObject() && attempts < maxAttempts) { //Server is slow on it's processing. We need to keep trying...
                 try { 
-                    TimeUnit.SECONDS.sleep(1);
-                    listener.getLogger().println("Waiting 1 second for server... ["+attempts+"]");
+                    TimeUnit.SECONDS.sleep(waitTime);
+                    listener.getLogger().println("Waiting "+waitTime+" second(s) for server... ["+attempts+"]");
                 } catch(InterruptedException e) {
                     System.out.println(e);
                 }
