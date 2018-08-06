@@ -126,7 +126,7 @@ public class CastHighlightPublisher extends Recorder {
     
     
     public String highlightResults(final String user, final String pass, final String appid, final String compid, final String serverurl, BuildListener listener) {
-        String highlightAuth = Base64.getEncoder().encodeToString((user+":"+pass).getBytes()); //Encode for API call
+        String highlightAuth = Base64.getEncoder().encodeToString((user+":"+pass).getBytes()); //Encode for API call - base64(user:pass)
         String outputMessage = "";
         
         try {
@@ -135,7 +135,7 @@ public class CastHighlightPublisher extends Recorder {
             int attempts = 1;
             int waitTime = 1;
             int maxAttempts = 15;
-            while(metrics.isNullObject() && attempts < maxAttempts) { //Server is slow on it's processing. We need to keep trying...
+            while(metrics.isNullObject() && attempts < maxAttempts) { //Server is slow on it's processing the metrics we need. Keep trying till max...
                 try { 
                     TimeUnit.SECONDS.sleep(waitTime);
                     listener.getLogger().println("Waiting "+waitTime+" second(s) for server... ["+attempts+"]");
@@ -153,7 +153,7 @@ public class CastHighlightPublisher extends Recorder {
                 while ((inputLine = in.readLine()) != null) { //Read each return line from URL request
 
                     JSONObject collectiveJson = JSONObject.fromObject(inputLine);
-                    metrics = JSONArray.fromObject(collectiveJson.get("metrics")).getJSONObject(0); //Everything useful is in metrics
+                    metrics = JSONArray.fromObject(collectiveJson.get("metrics")).getJSONObject(0); //Everything useful is in metric
                     //System.out.println(collectiveJson);
                 }
                 attempts++;
@@ -234,7 +234,7 @@ public class CastHighlightPublisher extends Recorder {
                 }
             } else {
                 //Server failed to respond with any metric data after 15 tries over 15 secs.
-                outputMessage += "Server failed to respond with valid metrics after 15 attempts";
+                outputMessage += "Server failed to respond with valid metrics after " +maxAttempts+ " attempts";
             }
         } catch(MalformedURLException e) {
             System.out.println(e);
@@ -260,7 +260,7 @@ public class CastHighlightPublisher extends Recorder {
         return("<b>" + key + "</b> : " + value + "<br>");
     }
 
-    public static boolean isNumeric(String str) {
+    public static boolean isNumeric(String str) { //Thank you stackoverflow
         try {
             double d = Double.parseDouble(str);
         } catch (NumberFormatException nfe) {
@@ -282,12 +282,14 @@ public class CastHighlightPublisher extends Recorder {
         filepath != null &&
         filepathOutput != null) {
             //Minimum configs are filled out
-            filepath = env.expand(filepath); //For env interp = https://stackoverflow.com/questions/30512887/variable-substitution-in-jenkins-plugin
+            filepath = env.expand(filepath); //For enviormental variable interp = https://stackoverflow.com/questions/30512887/variable-substitution-in-jenkins-plugin
             String clitool = formGlobal.getString("clitool");
             String serverurl = formGlobal.getString("serverurl");
             String perlpath = formGlobal.getString("perlpath");
 
             List<String> commandAddition = new ArrayList<String>();
+            
+            //Spawn files for java to check existance
             File cliFile = new File(clitool);
             File projectDir = new File(filepath);
             File outputDir = new File(filepathOutput);
@@ -339,11 +341,11 @@ public class CastHighlightPublisher extends Recorder {
                     } else {
                         message = "Ran offline";
                     }
-                    commandAddition.add("--skipUpload"); //Override of online stuff, if forced offline
+                    commandAddition.add("--skipUpload"); //Override online stuff, if forced offline with empty fields or user choice
                 }
                 
                 if (extrafields != null) {
-                    //Turn extra fields into an arraylist for the executed PB.
+                    //Turn extra fields into an arraylist for the executed PB. 
                     for (String s : extrafields.split(" ")) {
                         commandAddition.add(s.trim());
                     }

@@ -25,7 +25,8 @@ public class CastHighlightBuildAction implements Action {
     }
     
     public String getHighlightResults() {
-        return(pageMessage);
+        //As opposed to pulling upon live, we get this var prior to the tab being opened
+        return pageMessage;
     }
     
     @Override
