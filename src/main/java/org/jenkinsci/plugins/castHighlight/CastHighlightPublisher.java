@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.Set;
 import net.sf.json.JSONArray;
 import org.apache.commons.lang.StringUtils;
-
+import java.util.concurrent.TimeUnit;
 
 /*
 TODO: 
@@ -122,47 +122,62 @@ public class CastHighlightPublisher extends Recorder {
     
     
     
-    public String highlightResults(final String user, final String pass, final String appid, final String compid, final String serverurl) {
+    public String highlightResults(final String user, final String pass, final String appid, final String compid, final String serverurl, BuildListener listener) {
         String highlightAuth = Base64.getEncoder().encodeToString((user+":"+pass).getBytes()); //Encode for API call
         String outputMessage = "";
+        
         try {
-            URL url = new URL(serverurl+"/WS2/domains/"+compid+"/applications/"+appid); //Pray that serverurl is formatted correctly. 
-            URLConnection uc = url.openConnection();
-            uc.setRequestProperty("X-Requested-With", "Curl");
-            uc.setRequestProperty("Authorization", "Basic "+highlightAuth);
+            listener.getLogger().println("\nPulling Highlight Results from server:");
+            JSONObject metrics = new JSONObject(true); //Initiate a null JSON object (for while() loop)
+            int attempts = 1;
+            while(metrics.isNullObject() && attempts < 15) { //Server is slow on it's processing. We need to keep trying...
+                try { 
+                    TimeUnit.SECONDS.sleep(1);
+                    listener.getLogger().println("Waiting 1 second for server... ["+attempts+"]");
+                } catch(InterruptedException e) {
+                    System.out.println(e);
+                }
+                URL url = new URL(serverurl+"/WS2/domains/"+compid+"/applications/"+appid); //Pray that serverurl is formatted correctly. 
+                URLConnection uc = url.openConnection();
+                uc.setRequestProperty("X-Requested-With", "Curl"); //Spoof a curl request...
+                uc.setRequestProperty("Authorization", "Basic "+highlightAuth);
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+                BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
 
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) { //Read each return line from URL request
+                String inputLine;
+                while ((inputLine = in.readLine()) != null) { //Read each return line from URL request
 
-                JSONObject collectiveJson = JSONObject.fromObject(inputLine);
-                JSONObject metrics = JSONArray.fromObject(collectiveJson.get("metrics")).getJSONObject(0); //Everything useful is in metrics
+                    JSONObject collectiveJson = JSONObject.fromObject(inputLine);
+                    metrics = JSONArray.fromObject(collectiveJson.get("metrics")).getJSONObject(0); //Everything useful is in metrics
+                    //System.out.println(collectiveJson);
+                }
+                attempts++;
+            }           
 
-                List<String> exclude = Arrays.asList( //Exclude these keys
-                    "businessImpact", 
-                    "roarIndex", 
-                    "technicalDebt", 
-                    "maintenanceRecordedFTE", 
-                    "cloudReadyScan",
-                    "cloudReadyDetail"
-                );
-                 List<String> mult = Arrays.asList( //Multiply value x100 (For highlight correct scale)
-                    "softwareResiliency", 
-                    "softwareAgility", 
-                    "softwareElegance",
-                    "boosters",
-                    "blockers",
-                    "cloudReady"
-                );
-                Map<String, String> keyChange = new HashMap<String, String>() { //Exceptions to the camelCase conversion, special key changes
-                {
-                    put("Cloud Ready", "CloudReady");
-                    put("Boosters", "Cloud Boosters");
-                    put("Blockers", "Cloud Blockers");
-                    put("Roadblocks", "Cloud Roadblocks");
-                }};
-
+            List<String> exclude = Arrays.asList( //Exclude these keys
+                "businessImpact", 
+                "roarIndex", 
+                "technicalDebt", 
+                "maintenanceRecordedFTE", 
+                "cloudReadyScan",
+                "cloudReadyDetail"
+            );
+             List<String> mult = Arrays.asList( //Multiply value x100 (For highlight correct scale)
+                "softwareResiliency", 
+                "softwareAgility", 
+                "softwareElegance",
+                "boosters",
+                "blockers",
+                "cloudReady"
+            );
+            Map<String, String> keyChange = new HashMap<String, String>() { //Exceptions to the camelCase conversion, special key changes
+            {
+                put("Cloud Ready", "CloudReady");
+                put("Boosters", "Cloud Boosters");
+                put("Blockers", "Cloud Blockers");
+                put("Roadblocks", "Cloud Roadblocks");
+            }};
+            if (!metrics.isNullObject()) {  //If attempts are overtried, make sure not to point to a null object
                 final Set<String> keys = metrics.keySet();
                 for (final String key : keys) {
                     String value = metrics.getString(key);
@@ -188,7 +203,7 @@ public class CastHighlightPublisher extends Recorder {
                 JSONArray cloudDetailsWhole = JSONArray.fromObject(metrics.get("cloudReadyDetail"));
                 for (int j=0; j<cloudDetailsWhole.size(); j++) { //Iterate though each technology (I think)
                     JSONObject cloudDetails = cloudDetailsWhole.getJSONObject(j);
-                
+
                     outputMessage += formatKeyPairOutput("Technology", cloudDetails.getString("technology")); //Pull the Technology detected prior to rest of cloud details
 
                     JSONArray innerCloudDetailsArray = JSONArray.fromObject(cloudDetails.get("cloudReadyDetails"));
@@ -212,7 +227,9 @@ public class CastHighlightPublisher extends Recorder {
                         }
                     }
                 }
-
+            } else {
+                //Server failed to respond with any metric data after 15 tries over 15 secs.
+                outputMessage += "Server failed to respond with valid metrics after 15 attempts";
             }
         } catch(MalformedURLException e) {
             System.out.println(e);
@@ -299,14 +316,14 @@ public class CastHighlightPublisher extends Recorder {
                         "--password", password, 
                         "--applicationId", appid,
                         "--companyId", compid,
-                        "--serverUrl", "\""+serverurl+"\""};
+                        "--serverUrl", serverurl};
                     for (String s : strs) {
                         commandAddition.add(s); //Additional online commands appended
                     }
                     if (snapshotlabel != null) { //Optional snapshot label appended
                         String tempSnapshotlabel = env.expand(snapshotlabel);
                         commandAddition.add("--snapshotLabel");
-                        commandAddition.add("\""+tempSnapshotlabel+"\"");
+                        commandAddition.add(tempSnapshotlabel);
                     }
                     
                         
@@ -347,7 +364,7 @@ public class CastHighlightPublisher extends Recorder {
                     listener.getLogger().println("Exited with status: " + status); //See exit status of highlight (somehow the highlight tool never throws the right code w/ errors - always 0)
                     if (useonline) {
                         //Start proper post-build action, to get highlight stats
-                        String pageMessage = highlightResults(login, password, appid, compid, serverurl);
+                        String pageMessage = highlightResults(login, password, appid, compid, serverurl, listener);
                         CastHighlightBuildAction buildAction = new CastHighlightBuildAction(pageMessage, build);
                         build.addAction(buildAction);
                     }
