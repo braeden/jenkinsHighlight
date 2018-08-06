@@ -41,6 +41,10 @@
             <f:textbox />
         </f:entry>
         
+        <f:entry title="Pull Highlight from Server" field="pullserver" inline="true">
+            <f:checkbox />
+        </f:entry>
+        
     </f:optionalBlock>
 
 </j:jelly>
