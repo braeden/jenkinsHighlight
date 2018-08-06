@@ -22,12 +22,14 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import hudson.EnvVars;
 
-
+//API Request
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+
+//Misc list keeping
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
