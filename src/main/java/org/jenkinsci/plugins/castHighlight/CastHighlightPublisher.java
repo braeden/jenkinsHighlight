@@ -1,45 +1,49 @@
 package org.jenkinsci.plugins.castHighlight;
 
-
+//Jenkins etc. 
 import hudson.Launcher;
 import hudson.Extension;
 import hudson.tasks.*;
 import hudson.model.AbstractBuild;
 import hudson.model.BuildListener;
 import hudson.model.AbstractProject;
-import net.sf.json.JSONObject;
-import net.sf.json.JSONSerializer;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.StaplerRequest; 
+
+//JSON parsing
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject; //This is a god tier library (JSON in java sucks)
+import net.sf.json.JSONSerializer;
+
+//Executing jar file
 import java.io.File;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 import hudson.EnvVars;
+
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-import net.sf.json.JSONArray;
-import org.apache.commons.lang.StringUtils;
-import java.util.concurrent.TimeUnit;
+import java.util.Set; //I think I've included every type of list like object ^ 
+import org.apache.commons.lang.StringUtils; //For camelcase parsing
+import java.util.concurrent.TimeUnit; //For delay
+//That's a lot of imports lol.
+//This files should be split up more
+//
 
-/*
-TODO: 
-- Disable inputs fields that shouldn't be used 
-- Add string queries to all local factors, validate project path, id's etc. 
-- Make directories folder selectable
-*/
-
-
+///// Braeden Smith 2018 (c)
+///// braeden123.github.io
+///// MIT License
 
 
 /**
