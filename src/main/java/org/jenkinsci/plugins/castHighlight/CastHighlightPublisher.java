@@ -185,27 +185,31 @@ public class CastHighlightPublisher extends Recorder {
 
                 //CloudReady Details parsing below
                 outputMessage += "<hr><h3>CloudReady Details</h3>"; 
-                JSONObject cloudDetails = JSONArray.fromObject(metrics.get("cloudReadyDetail")).getJSONObject(0);
-                outputMessage += formatKeyPairOutput("Technology", cloudDetails.getString("technology")); //Pull the Technology detected prior to rest of cloud details
+                JSONArray cloudDetailsWhole = JSONArray.fromObject(metrics.get("cloudReadyDetail"));
+                for (int j=0; j<cloudDetailsWhole.size(); j++) { //Iterate though each technology (I think)
+                    JSONObject cloudDetails = cloudDetailsWhole.getJSONObject(j);
+                
+                    outputMessage += formatKeyPairOutput("Technology", cloudDetails.getString("technology")); //Pull the Technology detected prior to rest of cloud details
 
-                JSONArray innerCloudDetailsArray = JSONArray.fromObject(cloudDetails.get("cloudReadyDetails"));
-                for (int i=0; i<innerCloudDetailsArray.size(); i++) { //Get every insight sent
-                    JSONObject innerCloudDetails = innerCloudDetailsArray.getJSONObject(i); //Turn each insight into a JSONObject
-                    if (innerCloudDetails.getBoolean("triggered")) { //If the insight is actually detected as "triggered"
-                        JSONObject extendedCloudIdent = JSONObject.fromObject(innerCloudDetails.getString("cloudRequirement")); //Cloud indentification subsection
+                    JSONArray innerCloudDetailsArray = JSONArray.fromObject(cloudDetails.get("cloudReadyDetails"));
+                    for (int i=0; i<innerCloudDetailsArray.size(); i++) { //Get every insight sent
+                        JSONObject innerCloudDetails = innerCloudDetailsArray.getJSONObject(i); //Turn each insight into a JSONObject
+                        if (innerCloudDetails.getBoolean("triggered")) { //If the insight is actually detected as "triggered"
+                            JSONObject extendedCloudIdent = JSONObject.fromObject(innerCloudDetails.getString("cloudRequirement")); //Cloud indentification subsection
 
-                        outputMessage += "<br><a href="+extendedCloudIdent.getString("hrefDoc")+">"+
-                            extendedCloudIdent.getString("display")+
-                            " ["+extendedCloudIdent.getString("ruleType")+"]"+
-                            "</a><br>"; //Format link with insight
+                            outputMessage += "<br><a href="+extendedCloudIdent.getString("hrefDoc")+">"+
+                                extendedCloudIdent.getString("display")+
+                                " ["+extendedCloudIdent.getString("ruleType")+"]"+
+                                "</a><br>"; //Format link with insight
 
-                        JSONArray filesArray = JSONArray.fromObject(innerCloudDetails.get("files"));
-                        for (int f = 0; f < filesArray.size(); f++) {
-                            if (!filesArray.getString(f).equals("null")) {
-                                outputMessage += "<code>"+filesArray.getString(f)+"</code><br>"; //Print each file that its detected in
+                            JSONArray filesArray = JSONArray.fromObject(innerCloudDetails.get("files"));
+                            for (int f = 0; f < filesArray.size(); f++) {
+                                if (!filesArray.getString(f).equals("null")) {
+                                    outputMessage += "<code>"+filesArray.getString(f)+"</code><br>"; //Print each file that its detected in
+                                }
                             }
+                            outputMessage += "<hr>"; //Break with line after each insight
                         }
-                        outputMessage += "<hr>"; //Break with line after each insight
                     }
                 }
 
@@ -309,7 +313,7 @@ public class CastHighlightPublisher extends Recorder {
                 } else {
                     if (useonline) {
                         message = "Some fields required for online use are empty, ran offline (and un-enabled checkbox)";
-                        useonline = false; //Switch sign of checkbox is stuff is missing
+                        useonline = false; //Switch sign of checkbox if stuff is missing
                     } else {
                         message = "Ran offline";
                     }
