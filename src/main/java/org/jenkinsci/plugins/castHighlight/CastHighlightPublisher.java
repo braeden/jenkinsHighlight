@@ -39,6 +39,8 @@ import java.util.Map;
 import java.util.Set; //I think I've included every type of list like object ^ 
 import org.apache.commons.lang.StringUtils; //For camelcase parsing
 import java.util.concurrent.TimeUnit; //For delay
+import java.text.SimpleDateFormat;
+import java.util.Date;
 //That's a lot of imports lol.
 //This files should be split up more
 //
@@ -134,14 +136,13 @@ public class CastHighlightPublisher extends Recorder {
     public String highlightResults(final String user, final String pass, final String appid, final String compid, final String serverurl, BuildListener listener) {
         String highlightAuth = Base64.getEncoder().encodeToString((user+":"+pass).getBytes()); //Encode for API call - base64(user:pass)
         String outputMessage = "";
-        
         try {
             listener.getLogger().println("-----\nPulling Highlight Results from server:");
             JSONObject metrics = new JSONObject(true); //Initiate a null JSON object (for while() loop)
             int attempts = 1;
-            int waitTime = 1;
-            int maxAttempts = 15;
-            while(metrics.isNullObject() && attempts < maxAttempts) { //Server is slow on it's processing the metrics we need. Keep trying till max...
+            int waitTime = 5;
+            int maxAttempts = 6;
+            while(metrics.isNullObject() && (attempts < maxAttempts)) { //Server is slow on it's processing the metrics we need. Keep trying till max...
                 try { 
                     TimeUnit.SECONDS.sleep(waitTime);
                     listener.getLogger().println("Waiting "+waitTime+" second(s) for server... ["+attempts+"]");
@@ -193,6 +194,11 @@ public class CastHighlightPublisher extends Recorder {
                 for (final String key : keys) {
                     String value = metrics.getString(key);
                     if (!exclude.contains(key)) {
+                        if (key.equals("snapshotDate")) { //Format date from unix epoch to mm/dd/yyyy
+                            long epochTime = Long.parseLong(value);
+                            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+                            value = sdf.format(new Date(epochTime));
+                        }
                         String keyWords = camelCase(key);
                         if (keyChange.get(keyWords) != null) {
                             keyWords = keyChange.get(keyWords);
@@ -383,10 +389,11 @@ public class CastHighlightPublisher extends Recorder {
                     }
                 } catch(IOException e) {
                     e.printStackTrace();  
-                    message = "IO Exception";
+                    listener.getLogger().println("\nHIGHLIGHT MESSAGE: IO Exception");
+
                 } catch(InterruptedException e) {
                     e.printStackTrace();  
-                    message = "Interupt Exception";
+                    listener.getLogger().println("\nHIGHLIGHT MESSAGE: Interupt Exception");
                 }
             } else {
                 //Get paths from what java thinks, debugging stuff 
