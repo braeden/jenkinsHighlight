@@ -76,19 +76,19 @@ public class CastHighlightPublisher extends Recorder {
     private final String compid;
     private String snapshotlabel;
     private boolean useonline;
-    private boolean serverreq;
+    private boolean pullserver;
 
     
     // Fields in config.jelly must match the parameter names in the "DataBoundConstructor"
     @DataBoundConstructor
-    public CastHighlightPublisher(String filepath, String appid, String filepathOutput, String extrafields, String login, String password, String compid, String snapshotlabel, boolean serverreq, boolean useonline) {
+    public CastHighlightPublisher(String filepath, String appid, String filepathOutput, String extrafields, String login, String password, String compid, String snapshotlabel, boolean pullserver, boolean useonline) {
         this.filepath = filepath;
         this.appid = appid;
         this.filepathOutput = filepathOutput;
         this.extrafields = extrafields;
         this.login = login;
         this.password = password;
-        this.serverreq = serverreq;
+        this.pullserver = pullserver;
         this.compid = compid;
         this.useonline = useonline;
         this.snapshotlabel = snapshotlabel;
@@ -126,7 +126,7 @@ public class CastHighlightPublisher extends Recorder {
         return useonline;
     }
     public boolean getPullserver() {
-        return serverreq;
+        return pullserver;
     }
     
     
@@ -375,7 +375,7 @@ public class CastHighlightPublisher extends Recorder {
                     }
                     int status = p.waitFor();
                     listener.getLogger().println("Exited with status: " + status); //See exit status of highlight (somehow the highlight tool never throws the right code w/ errors - always 0)
-                    if (useonline && serverreq) {
+                    if (useonline && pullserver) {
                         //Start proper post-build action, to get highlight stats
                         String pageMessage = highlightResults(login, password, appid, compid, serverurl, listener);
                         CastHighlightBuildAction buildAction = new CastHighlightBuildAction(pageMessage, build);
